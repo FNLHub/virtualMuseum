@@ -39,6 +39,7 @@
       <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
       <p>Also, Dillon is awesome.</p>
       <p>And Kenzie deserves an A in CSCI 2</p>
+      <button id='dillonsBtn' onclick="dillonsBtn()">Dillons Button</button>
       <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
     </div>
     <p id="load">Firebase SDK Loading&hellip;</p>
@@ -64,6 +65,11 @@
           document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
         }
       });
+
+      function dillonsBtn()
+      {
+        alert('Dillons button is pressed. This will obviously do something else, something more... devious...');
+      }
     </script>
   </body>
 </html>
