@@ -52,3 +52,32 @@
 [debug] [2019-02-09T03:37:56.947Z] <<< HTTP RESPONSE 200
 [info] i  hosting: Serving hosting files from: public
 [info] +  hosting: Local server: http://localhost:5000
+[debug] [2019-02-23T04:26:44.682Z] ----------------------------------------------------------------------
+[debug] [2019-02-23T04:26:44.686Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jtred\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2019-02-23T04:26:44.686Z] CLI Version:   6.3.1
+[debug] [2019-02-23T04:26:44.686Z] Platform:      win32
+[debug] [2019-02-23T04:26:44.686Z] Node Version:  v10.13.0
+[debug] [2019-02-23T04:26:44.698Z] Time:          Fri Feb 22 2019 20:26:44 GMT-0800 (Pacific Standard Time)
+[debug] [2019-02-23T04:26:44.698Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-02-23T04:26:44.723Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-02-23T04:26:44.724Z] > authorizing via signed-in user
+[debug] [2019-02-23T04:26:44.724Z] [iam] checking project fnlvirtualmuseum for permissions ["firebase.projects.get"]
+[debug] [2019-02-23T04:26:44.727Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-02-23T04:26:44.728Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-02-23T04:26:45.037Z] <<< HTTP RESPONSE 200
+[debug] [2019-02-23T04:26:45.046Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/fnlvirtualmuseum:testIamPermissions  
+
+[debug] [2019-02-23T04:26:45.410Z] <<< HTTP RESPONSE 200
+[debug] [2019-02-23T04:26:45.416Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/fnlvirtualmuseum  
+ 
+[debug] [2019-02-23T04:26:45.745Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Users\jtred\Documents\Firebase\virtualMuseum'...
+[info] 
+[debug] [2019-02-23T04:26:45.757Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/414769018527/clients/_:getWebAppConfig  
+ 
+[debug] [2019-02-23T04:26:46.117Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
