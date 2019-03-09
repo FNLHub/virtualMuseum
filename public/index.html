@@ -114,8 +114,10 @@
         var files = evt.delegateTarget.files;
         var theFile = files[0];
 
+        console.log(theFile);
 
-        firebase.storage().ref('Hello/').put(theFile).then(function (fileSnapshot) {
+
+        firebase.storage().ref().child('pics/cats/'+theFile.name).put(theFile).then(function (fileSnapshot) {
           // Do something after saved in database
           fileSnapshot.ref.getDownloadURL().then( function(url) {
 
