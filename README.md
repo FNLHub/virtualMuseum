@@ -1,5 +1,5 @@
 # virtualMuseum
-FNL Scanner Scan Repo
+FNL Scanner Uploader Repo
 
 We started this project on Friday 2/1/2019
 
