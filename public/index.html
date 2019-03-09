@@ -46,8 +46,27 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         Mauris sagittis pellentesque lacus eleifend lacinia...
       </div>
+    <!--Buttons to upload files format:
+        <div class="mdl-card__actions mdl-card--border">
+          <label>LABEL NAME</label>
+        <input type="file" accept = "EXTENSION" id="IDNAME" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      </div>
+    -->
       <div class="mdl-card__actions mdl-card--border">
-        <input type="file" id="chooseBtn" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+          <label>.obj File</label>
+        <input type="file" accept = ".obj" id="obj" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+          <label>.mtl File</label>
+        <input type="file" accept = ".mtl" id="mtl" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+          <label>.jpg File</label>
+        <input type="file" accept = ".jpg" id="jpg" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+          <label>.png File</label>
+        <input type="file" accept = ".png" id="png" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
       </div>
       <div>
         <label>Item Description</label>
@@ -61,20 +80,8 @@
         <label>Your Name</label>
         <input type = "text"
                 id = "uploaderName"
-                value = "student"/>
-      </div>
-      <div>
-        <label> Your Major</label>
-        <input type = "radio"
-               name = "major"
-               id = "engineering"
-               value = "Engineering"/>Engineering
-        <input type = "radio"
-                name = "major"
-                id = "biology"
-                value = "Biology"/>Biology
-
-      </div>
+                value = "your name"/>
+      
       <div class="mdl-card__menu">
         <button type="file" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
           <i class="material-icons">share</i>
@@ -110,7 +117,7 @@
         //document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
       }
 
-      $("#chooseBtn").on('change', function (evt) {
+      $("#obj").on('change', function (evt) {
         var files = evt.delegateTarget.files;
         var theFile = files[0];
 
