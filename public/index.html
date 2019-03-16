@@ -95,7 +95,7 @@
           <input type="text" id="uploaderName" value="your name" />
         </form>
         <div>
-          <button type="submit">full send bruh</button>
+          <button id="myDamnButton" type="submit">full send bruh</button>
         </div>
         <div class="mdl-card__menu">
           <button type="file" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
@@ -131,37 +131,54 @@
           console.error(e);
           //document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
         }
-
-        $("#obj").on('change', function (evt) {
-          var files = evt.delegateTarget.files;
+        $("#png").on('change', function (e) {
+          console.log("submitted");
+          console.log(e);
+          var files = e.delegateTarget.files;
           var theFile = files[0];
-
           console.log(theFile);
-
-
-
-
-
           firebase.storage().ref().child('pics/cats/' + theFile.name).put(theFile).then(function (fileSnapshot) {
             // Do something after saved in database
-            fileSnapshot.ref.getDownloadURL().then(function (url) {
+            console.log("done");
+            
+          });
 
-              console.log(fileSnapshot.metadata.fullPath);
-              console.log(url);
+         
+        })
+      })
+      $("#myDamnButton").on('click', function () {
+        console.log("my button click");
+      })
+      $("#obj").on('change', function (evt) {
+        var files = evt.delegateTarget.files;
+        var theFile = files[0];
 
-            });
+        console.log(theFile);
 
+
+
+
+
+        firebase.storage().ref().child('test/test2/' + theFile.name).put(theFile).then(function (fileSnapshot) {
+          // Do something after saved in database
+          fileSnapshot.ref.getDownloadURL().then(function (url) {
+
+            console.log(fileSnapshot.metadata.fullPath);
+            console.log(url);
 
           });
 
-          console.log(theFile);
-        })
+
+        });
+
+        console.log(theFile);
+      })
 
 
 
 
 
-      });
+      
 
       var descriptionSize = document.getElementById("description").length;
       if (descriptionSize == 0) {
