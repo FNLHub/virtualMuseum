@@ -131,54 +131,54 @@
           console.error(e);
           //document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
         }
-        $("#png").on('change', function (e) {
+        //sends png to firebase storage
+        $("#png").on('change', function (evt) {
           console.log("submitted");
-          console.log(e);
-          var files = e.delegateTarget.files;
+          console.log(evt);
+          var files = evt.delegateTarget.files;
           var theFile = files[0];
           console.log(theFile);
+
           firebase.storage().ref().child('pics/cats/' + theFile.name).put(theFile).then(function (fileSnapshot) {
             // Do something after saved in database
             console.log("done");
-            
-          });
 
-         
+          });
+          //sends obj to firebase storage
+          $("#obj").on('change', function (evt) {
+            var files = evt.delegateTarget.files;
+            var theFile = files[0];
+            console.log(theFile);
+
+            firebase.storage().ref().child('test/test2/' + theFile.name).put(theFile).then(function (fileSnapshot) {
+              // Do something after saved in database
+              fileSnapshot.ref.getDownloadURL().then(function (url) {
+
+                console.log(fileSnapshot.metadata.fullPath);
+                console.log(url);
+
+              });
+
+
+            });
+
+            console.log(theFile);
+          })
+
+
         })
       })
+      //logs on console everytime the button is clicked
       $("#myDamnButton").on('click', function () {
         console.log("my button click");
       })
-      $("#obj").on('change', function (evt) {
-        var files = evt.delegateTarget.files;
-        var theFile = files[0];
-
-        console.log(theFile);
 
 
 
 
 
-        firebase.storage().ref().child('test/test2/' + theFile.name).put(theFile).then(function (fileSnapshot) {
-          // Do something after saved in database
-          fileSnapshot.ref.getDownloadURL().then(function (url) {
-
-            console.log(fileSnapshot.metadata.fullPath);
-            console.log(url);
-
-          });
 
 
-        });
-
-        console.log(theFile);
-      })
-
-
-
-
-
-      
 
       var descriptionSize = document.getElementById("description").length;
       if (descriptionSize == 0) {
