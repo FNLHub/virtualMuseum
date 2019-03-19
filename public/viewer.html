@@ -16,40 +16,28 @@
 
 
     <style>
-        body {
-            margin: 0;
-        }
-
-        canvas {
-            width: 100%;
-            height: 90%;
-            z-index: 10;
-        }
-
-        #progress {
-            position: absolute;
-            z-index: 5;
+        body{
+            background: black;
             color: white;
-            width: 100%;
-            font-size: large;
         }
+
     </style>
 </head>
 
 <body>
-    <div id="progress">
+    <div id="header">
         <h3>FNL 3d Scanner Project</h3>
-        Loading huge scan...
-        <div class="progress">
-            <div class="indeterminate"></div>
-        </div>
+        <div id="progress">Loading huge scan...</div>
+        <!--
+        <button id="theBtn">Switch Objs</button>
+        -->
     </div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js"></script>
-    <script src="scripts/OrbitControls.js"></script>
-    <script src="scripts/OBJLoader.js"></script>
-    <script src="scripts/MTLLoader.js"></script>
+    <script src="scripts/libs/OrbitControls.js"></script>
+    <script src="scripts/libs/OBJLoader.js"></script>
+    <script src="scripts/libs/MTLLoader.js"></script>
     <script src="scripts/viewerScript.js"></script>
 
 </body>
