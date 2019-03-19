@@ -43,8 +43,8 @@
         <h2 class="mdl-card__title-text">Welcome</h2>
       </div>
       <div class="mdl-card__supporting-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Mauris sagittis pellentesque lacus eleifend lacinia...
+        USER INPUT: 
+        <input id="userInput" type="text" placeholder="Enter a Category">
       </div>
       <!--Buttons to upload files format:
         <div class="mdl-card__actions mdl-card--border">
@@ -123,27 +123,28 @@
         //
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-        try {
-          let app = firebase.app();
-          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          //document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          //document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
-        }
-        //sends png to firebase storage
+        //BUSHER LOOK HERE ************************************
+        //Place a change listener on the #png button
         $("#png").on('change', function (evt) {
-          console.log("submitted");
-          console.log(evt);
+   
           var files = evt.delegateTarget.files;
           var theFile = files[0];
-          console.log(theFile);
+          //get user category string from the input box
+          var userCategory = $("#userInput").val();
+          if(!userCategory) userCategory = "default"; //just in case user does not type into the input box
 
-          firebase.storage().ref().child('pics/cats/' + theFile.name).put(theFile).then(function (fileSnapshot) {
-            // Do something after saved in database
-            console.log("done");
-
+          //put the file in storage using the users category
+          firebase.storage().ref().child('pics/'+ userCategory +'/' + theFile.name).put(theFile).then(function (fileSnapshot) { 
+              // Do something after saved in database
+              // How about getting the download url?
+              fileSnapshot.ref.getDownloadURL().then(function (url) {
+                console.log(url);
+              });
           });
+          //BUSHER stop LOOKING HERE ************************************
+
+
+
           //sends obj to firebase storage
           $("#obj").on('change', function (evt) {
             var files = evt.delegateTarget.files;
