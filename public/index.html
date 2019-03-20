@@ -123,7 +123,7 @@
         //
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-        //BUSHER LOOK HERE ************************************
+        //BUSHER LOOK HERE ************************************ (0)_(0)
         //Place a change listener on the #png button
         $("#png").on('change', function (evt) {
    
@@ -141,12 +141,52 @@
                 console.log(url);
               });
           });
-          //BUSHER stop LOOKING HERE ************************************
+          //BUSHER stop LOOKING HERE ************************************ (-)_(-)
 
 
 
           //sends obj to firebase storage
           $("#obj").on('change', function (evt) {
+            var files = evt.delegateTarget.files;
+            var theFile = files[0];
+            console.log(theFile);
+
+            firebase.storage().ref().child('test/test2/' + theFile.name).put(theFile).then(function (fileSnapshot) {
+              // Do something after saved in database
+              fileSnapshot.ref.getDownloadURL().then(function (url) {
+
+                console.log(fileSnapshot.metadata.fullPath);
+                console.log(url);
+
+              });
+
+
+            });
+
+            console.log(theFile);
+          })
+          //send mtl file
+          $("#mtl").on('change', function (evt) {
+            var files = evt.delegateTarget.files;
+            var theFile = files[0];
+            console.log(theFile);
+
+            firebase.storage().ref().child('test/test2/' + theFile.name).put(theFile).then(function (fileSnapshot) {
+              // Do something after saved in database
+              fileSnapshot.ref.getDownloadURL().then(function (url) {
+
+                console.log(fileSnapshot.metadata.fullPath);
+                console.log(url);
+
+              });
+
+
+            });
+
+            console.log(theFile);
+          })
+          //send jpg file
+          $("#jpg").on('change', function (evt) {
             var files = evt.delegateTarget.files;
             var theFile = files[0];
             console.log(theFile);
