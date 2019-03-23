@@ -2,10 +2,7 @@
 
 //objs
 var handObjURL = 'https://firebasestorage.googleapis.com/v0/b/fnlvirtualmuseum.appspot.com/o/3dObjects%2Fhand%2Fhandcomplete.obj?alt=media&token=5cf5ba2e-6bba-4eca-86f9-6646f9a090bd';
-var handMtlURL = 'https://firebasestorage.googleapis.com/v0/b/fnlvirtualmuseum.appspot.com/o/3dObjects%2Fhand%2Fhandcomplete.mtl?alt=media&token=a6a1454a-7415-4124-97e1-c9f3141c1fc2';
-var handJpgURL = 'https://firebasestorage.googleapis.com/v0/b/fnlvirtualmuseum.appspot.com/o/3dObjects%2Fhand%2Fhand3.jpg?alt=media&token=f72056d9-d83c-460d-84fb-ab4c8f294746';
-
-
+var jawObjURL = 'https://firebasestorage.googleapis.com/v0/b/fnlvirtualmuseum.appspot.com/o/3dObjects%2Fjaw%2Fjawsmaller.obj?alt=media&token=9d46470e-d589-44c1-9023-d80cb3662a76';
 
 var scene = new THREE.Scene();
 
@@ -44,17 +41,27 @@ scene.add(fillLight);
 scene.add(backLight);
 scene.add(light);
 
+
 var mtlLoader = new THREE.MTLLoader();
-mtlLoader.setTexturePath('assets/');
-mtlLoader.setPath('assets/');
-mtlLoader.load('handcomplete.mtl', function (materials) {
+
+//mtlLoader.setTexturePath('/assets/');
+var arg = 'fnlvirtualmuseum.appspot.com/o/3dObjects%2Fhand%2Fhandcomplete.mtl?alt=media&token=f85bb660-2e8a-4552-a124-2889a3f138e1';
+var argjaw = 'fnlvirtualmuseum.appspot.com/o/3dObjects%2Fjaw%2Fjawsmaller.mtl?alt=media&token=a2693954-0dd4-4877-8123-ab8f1d98b6d9'
+//https://firebasestorage.googleapis.com/v0/b/
+//
+
+mtlLoader.setPath('https://firebasestorage.googleapis.com/v0/b/');
+//mtlLoader.setResourcePath('');
+mtlLoader.setCrossOrigin('https://firebasestorage.googleapis.com');
+
+mtlLoader.load(argjaw, function (materials) {
     
     materials.preload();
 
     var objLoader = new THREE.OBJLoader();
     objLoader.setMaterials(materials);
-    objLoader.setPath('assets/');
-    objLoader.load('handcomplete.obj', function (object) {
+    //objLoader.setPath('');
+    objLoader.load(jawObjURL, function (object) {
 
        $("#progress").hide();
 

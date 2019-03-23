@@ -1,83 +1,25 @@
-[debug] [2019-03-19T02:26:42.589Z] ----------------------------------------------------------------------
-[debug] [2019-03-19T02:26:42.597Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jtred\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
-[debug] [2019-03-19T02:26:42.597Z] CLI Version:   6.5.0
-[debug] [2019-03-19T02:26:42.597Z] Platform:      win32
-[debug] [2019-03-19T02:26:42.598Z] Node Version:  v10.13.0
-[debug] [2019-03-19T02:26:42.601Z] Time:          Mon Mar 18 2019 19:26:42 GMT-0700 (Pacific Daylight Time)
-[debug] [2019-03-19T02:26:42.602Z] ----------------------------------------------------------------------
+[debug] [2019-03-23T00:58:15.066Z] ----------------------------------------------------------------------
+[debug] [2019-03-23T00:58:15.069Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jtred\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2019-03-23T00:58:15.069Z] CLI Version:   6.5.0
+[debug] [2019-03-23T00:58:15.069Z] Platform:      win32
+[debug] [2019-03-23T00:58:15.069Z] Node Version:  v10.13.0
+[debug] [2019-03-23T00:58:15.070Z] Time:          Fri Mar 22 2019 17:58:15 GMT-0700 (Pacific Daylight Time)
+[debug] [2019-03-23T00:58:15.070Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2019-03-19T02:26:42.633Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-03-19T02:26:42.635Z] > authorizing via signed-in user
-[debug] [2019-03-19T02:26:42.636Z] [iam] checking project fnlvirtualmuseum for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
-[debug] [2019-03-19T02:26:42.641Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2019-03-19T02:26:42.641Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
- <request body omitted>
-[debug] [2019-03-19T02:26:44.063Z] <<< HTTP RESPONSE 200
-[debug] [2019-03-19T02:26:44.110Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/fnlvirtualmuseum:testIamPermissions  
+[debug] [2019-03-23T00:58:15.083Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-03-23T00:58:15.084Z] > authorizing via signed-in user
+[debug] [2019-03-23T00:58:15.084Z] [iam] checking project fnlvirtualmuseum for permissions ["firebase.projects.get"]
+[debug] [2019-03-23T00:58:15.087Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/fnlvirtualmuseum:testIamPermissions  
 
-[debug] [2019-03-19T02:26:44.550Z] <<< HTTP RESPONSE 200
-[debug] [2019-03-19T02:26:44.557Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/fnlvirtualmuseum  
+[debug] [2019-03-23T00:58:15.450Z] <<< HTTP RESPONSE 200
+[debug] [2019-03-23T00:58:15.454Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/fnlvirtualmuseum  
  
-[debug] [2019-03-19T02:26:45.000Z] <<< HTTP RESPONSE 200
+[debug] [2019-03-23T00:58:15.778Z] <<< HTTP RESPONSE 200
 [info] 
-[info] === Deploying to 'fnlvirtualmuseum'...
+[info] === Serving from 'C:\Users\jtred\Documents\Firebase\virtualMuseum'...
 [info] 
-[info] i  deploying database, storage, firestore, hosting
-[info] i  database: checking rules syntax...
-[debug] [2019-03-19T02:26:45.110Z] >>> HTTP REQUEST PUT https://fnlvirtualmuseum.firebaseio.com/.settings/rules.json?dryRun=true  
- {
-  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
-  "rules": {
-    ".read": false,
-    ".write": false
-  }
-}
-[debug] [2019-03-19T02:26:45.822Z] <<< HTTP RESPONSE 200
-[info] +  database: rules syntax for database fnlvirtualmuseum is valid
-[debug] [2019-03-19T02:26:45.845Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/fnlvirtualmuseum  
+[debug] [2019-03-23T00:58:15.788Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/414769018527/clients/_:getWebAppConfig  
  
-[debug] [2019-03-19T02:26:46.527Z] <<< HTTP RESPONSE 200
-[info] i  storage: checking storage.rules for compilation errors...
-[debug] [2019-03-19T02:26:46.559Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/fnlvirtualmuseum:test  
-
-[debug] [2019-03-19T02:26:47.252Z] <<< HTTP RESPONSE 200
-[info] +  storage: rules file storage.rules compiled successfully
-[info] i  firestore: checking firestore.rules for compilation errors...
-[info] i  firestore: reading indexes from firestore.indexes.json...
-[debug] [2019-03-19T02:26:47.313Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/fnlvirtualmuseum:test  
-
-[debug] [2019-03-19T02:26:47.776Z] <<< HTTP RESPONSE 200
-[info] +  firestore: rules file firestore.rules compiled successfully
-[debug] [2019-03-19T02:26:47.826Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/fnlvirtualmuseum/versions  
-
-[debug] [2019-03-19T02:26:48.889Z] <<< HTTP RESPONSE 200
-[info] i  storage: uploading rules storage.rules...
-[debug] [2019-03-19T02:26:48.912Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/fnlvirtualmuseum/rulesets  
-
-[debug] [2019-03-19T02:26:49.504Z] <<< HTTP RESPONSE 200
-[debug] [2019-03-19T02:26:49.506Z] [rules] created ruleset projects/fnlvirtualmuseum/rulesets/2c1b66cf-4fbc-459c-85af-956152328306
-[info] i  firestore: uploading rules firestore.rules...
-[debug] [2019-03-19T02:26:49.539Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/fnlvirtualmuseum/rulesets  
-
-[debug] [2019-03-19T02:26:49.540Z] >>> HTTP REQUEST GET https://firestore.googleapis.com/v1beta2/projects/fnlvirtualmuseum/databases/(default)/collectionGroups/-/indexes  
- 
-[debug] [2019-03-19T02:26:50.045Z] <<< HTTP RESPONSE 200
-[debug] [2019-03-19T02:26:50.049Z] [rules] created ruleset projects/fnlvirtualmuseum/rulesets/35cd46ce-1d73-4bee-98c0-d07f7fe46282
-[debug] [2019-03-19T02:26:50.133Z] <<< HTTP RESPONSE 200
-[debug] [2019-03-19T02:26:50.136Z] >>> HTTP REQUEST GET https://firestore.googleapis.com/v1beta2/projects/fnlvirtualmuseum/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false  
- 
-[debug] [2019-03-19T02:26:50.573Z] <<< HTTP RESPONSE 200
-[info] +  firestore: deployed indexes in firestore.indexes.json successfully
-[info] i  hosting[fnlvirtualmuseum]: beginning deploy...
-[info] i  hosting[fnlvirtualmuseum]: found 12 files in public
-[debug] [2019-03-19T02:26:50.615Z] [hosting] hash cache [cHVibGlj] load error: lines is not defined
-[debug] [2019-03-19T02:27:01.248Z] [hosting] hash cache [cHVibGlj] stored for 12 files
-[debug] [2019-03-19T02:27:01.250Z] [hosting][hash queue][FINAL]
-[debug] [2019-03-19T02:27:01.251Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/fnlvirtualmuseum/versions/e0647f9c7821317e:populateFiles  
- <request body omitted>
-[debug] [2019-03-19T02:27:02.616Z] <<< HTTP RESPONSE 200
-[debug] [2019-03-19T02:27:02.644Z] [hosting][populate queue][FINAL]
-[debug] [2019-03-19T02:27:02.646Z] [hosting] uploads queued: 5
-[debug] [2019-03-19T02:27:08.140Z] [hosting][upload queue][FINAL]
-[info] +  hosting[fnlvirtualmuseum]: file upload complete
-[debug] [2019-03-19T02:27:08.145Z] [hosting] deploy completed after 17565ms
+[debug] [2019-03-23T00:58:16.160Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
