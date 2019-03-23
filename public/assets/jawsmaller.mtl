@@ -3,11 +3,11 @@
 
 newmtl _texture
 Ns 96.078431
-Ka 1.000000 1.000000 1.000000
-Kd 0.640000 0.640000 0.640000
-Ks 0.500000 0.500000 0.500000
+Ka 0.500000 0.500000 0.500000
+Kd 1.0000 1.00000 1.00000
+Ks 0.020000 0.020000 0.020000
 Ke 0.000000 0.000000 0.000000
-Ni 1.000000
-d 1.000000
+Ni 0.500000
+d 1.00000
 illum 2
-map_Kd jawsmaller.jpg
+map_Kd https://firebasestorage.googleapis.com/v0/b/fnlvirtualmuseum.appspot.com/o/3dObjects%2Fjaw%2Fjawsmaller.jpg?alt=media&token=da528aac-0f7d-4790-a789-afc040ecc9f9
