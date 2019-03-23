@@ -95,7 +95,7 @@
           <input type="text" id="uploaderName" value="your name" />
         </form>
         <div>
-          <button id="myDamnButton" type="submit">full send bruh</button>
+          <button id="submit" type="submit">full send bruh</button>
         </div>
         <div class="mdl-card__menu">
           <button type="file" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
@@ -112,6 +112,7 @@
 
 
     <script>
+
       document.addEventListener('DOMContentLoaded', function () {
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!
@@ -125,23 +126,14 @@
 
         //BUSHER LOOK HERE ************************************ (0)_(0)
         //Place a change listener on the #png button
+        var fileObj, fileMtl, fileJpg, filePng; //declared global vars for files
         $("#png").on('change', function (evt) {
 
           var files = evt.delegateTarget.files;
-          var theFile = files[0];
-          //get user category string from the input box
-          var userCategory = $("#userInput").val();
-          if (!userCategory) userCategory = "default"; //just in case user does not type into the input box
+          filePng = files[0];
 
-          //put the file in storage using the users category
-          firebase.storage().ref().child('pics/' + userCategory + '/' + theFile.name).put(theFile).then(function (fileSnapshot) {
-            // Do something after saved in database
-            // How about getting the download url?
-            fileSnapshot.ref.getDownloadURL().then(function (url) {
-              console.log(url);
-            });
-          });
-        });
+          console.log(filePng);
+        })
           //BUSHER stop LOOKING HERE ************************************ (-)_(-)
 
 
@@ -150,65 +142,62 @@
           $("#obj").on('change', function (evt) {
 
             var files = evt.delegateTarget.files;
-            var theFile = files[0];
-            //get user category string from the input box
-            var userCategory = $("#userInput").val();
-            if (!userCategory) userCategory = "default"; //just in case user does not type into the input box
+            fileObj = files[0];
 
-            //put the file in storage using the users category
-            firebase.storage().ref().child('pics/' + userCategory + '/' + theFile.name).put(theFile).then(function (fileSnapshot) {
-              // Do something after saved in database
-              // How about getting the download url?
-              fileSnapshot.ref.getDownloadURL().then(function (url) {
-                console.log(url);
-              });
-            });
-
-            console.log(theFile);
+            console.log(fileObj);
           })
+
           //send mtl file
           $("#mtl").on('change', function (evt) {
 
             var files = evt.delegateTarget.files;
-            var theFile = files[0];
-            //get user category string from the input box
+            fileMtl = files[0];
+          
+
+            console.log(fileMtl);
+          })
+          //send jpg file
+          $("#jpg").on('change', function (evt) {
+
+            var files = evt.delegateTarget.files;
+            fileJpg = files[0];
+
+            console.log(fileJpg);
+          })
+          //logs on console everytime the button is clicked
+          $("#submit").on('click', function () {
+            console.log("my button click");
             var userCategory = $("#userInput").val();
             if (!userCategory) userCategory = "default"; //just in case user does not type into the input box
 
             //put the file in storage using the users category
-            firebase.storage().ref().child('pics/' + userCategory + '/' + theFile.name).put(theFile).then(function (fileSnapshot) {
+           firebase.storage().ref().child('pics/' + userCategory + '/' + fileObj.name).put(fileObj).then(function (fileSnapshot) {
               // Do something after saved in database
               // How about getting the download url?
               fileSnapshot.ref.getDownloadURL().then(function (url) {
                 console.log(url);
               });
             });
-            //send jpg file
-            $("#jpg").on('change', function (evt) {
+            firebase.storage().ref().child('pics/' + userCategory + '/' + filePng.name).put(filePng).then(function (fileSnapshot) {
 
-              var files = evt.delegateTarget.files;
-              var theFile = files[0];
-              //get user category string from the input box
-              var userCategory = $("#userInput").val();
-              if (!userCategory) userCategory = "default"; //just in case user does not type into the input box
-
-              //put the file in storage using the users category
-              firebase.storage().ref().child('pics/' + userCategory + '/' + theFile.name).put(theFile).then(function (fileSnapshot) {
-                // Do something after saved in database
-                // How about getting the download url?
-                fileSnapshot.ref.getDownloadURL().then(function (url) {
-                  console.log(url);
-                });
+              fileSnapshot.ref.getDownloadURL().then(function (url) {
+                console.log(url);
               });
+            });
+            firebase.storage().ref().child('pics/' + userCategory + '/' + fileMtl.name).put(fileMtl).then(function (fileSnapshot) {
 
+              fileSnapshot.ref.getDownloadURL().then(function (url) {
+                console.log(url);
+              });
+            });
+            firebase.storage().ref().child('pics/' + userCategory + '/' + fileJpg.name).put(fileJpg).then(function (fileSnapshot) {
 
-            })
+              fileSnapshot.ref.getDownloadURL().then(function (url) {
+                console.log(url);
+              });
+            });
           })
-          //logs on console everytime the button is clicked
-          $("#myDamnButton").on('click', function () {
-            console.log("my button click");
-          })
-        });
+        })
 
 
 
@@ -217,7 +206,10 @@
 
 
 
-          
+
+
+
+
 
 
     </script>
