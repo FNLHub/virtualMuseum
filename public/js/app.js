@@ -14,7 +14,7 @@ const app = new WHS.App([
     }),
 
     new WHS.RenderingModule({
-        bgColor: 0x000000,
+        bgColor: 0x151515,
 
         renderer: {
             antialias: true,
@@ -23,12 +23,9 @@ const app = new WHS.App([
             }
         }
     },
-
-
         { shadow: true }),
     new WHS.OrbitControlsModule(),
     new WHS.ResizeModule()]);
-
 
 // My Code --------------------------------------------------------------------------------------------------------
 const handObjURL = sessionStorage.getItem("object-file");
@@ -37,6 +34,7 @@ const imageURL = sessionStorage.getItem("material-image");
 const model = new EModel({
     imageURL: imageURL,
     modelURL: handObjURL,
+    roughness: 1,
     position: new THREE.Vector3(0, 5, 0)
 });
 model.addTo(app);
@@ -46,7 +44,7 @@ model.addTo(app);
 // Lights
 new WHS.PointLight({
     light: {
-        intensity: 0.4,
+        intensity: 0.8,
         distance: 100
     },
 
@@ -61,7 +59,7 @@ new WHS.PointLight({
 
 new WHS.AmbientLight({
     light: {
-        intensity: 0.9
+        intensity: 3.5
     }
 }).addTo(app);
 

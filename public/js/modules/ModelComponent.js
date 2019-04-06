@@ -9,7 +9,8 @@ class EModel extends WHS.Sphere {
     // Required by WHS
     static defaults = {
         imageURL: '',
-        modelURL: ''
+        modelURL: '',
+        roughness: 1,
     };
 
     // Constructor required by WHS
@@ -22,8 +23,9 @@ class EModel extends WHS.Sphere {
     build(params) {
         var loader = new THREE.OBJLoader();
         var mesh = new THREE.Mesh();
-        var material = new THREE.MeshLambertMaterial({
-            color: (params.color) ? params.color : 0xFFFFFF
+        var material = new THREE.MeshStandardMaterial({
+            color: (params.color) ? params.color : 0xFFFFFF,
+            roughness: params.roughness
         });
 
         // Load basic cube if no model url is given
@@ -36,8 +38,8 @@ class EModel extends WHS.Sphere {
 
         // Load the image if it exists
         if (params.imageURL != '') {
-            LoadImageToMaterial(imageURL, loadedMat => {
-                material.copy(loadedMat);
+            LoadImagesFromLink(imageURL, images => {
+                material.map = images.diffuse;
                 material.needsUpdate = true;
             });
         }
@@ -61,7 +63,7 @@ class EModel extends WHS.Sphere {
 
 // Regardless of using WHS.js, this is how I got the material to load correctly from the URL
 // Basically, the process was to re-create the image locally after downloading the image "Blob" from the URL
-function LoadImageToMaterial(imageURL, callback) {
+function LoadImagesFromLink(imageURL, callback) {
     fetch(imageURL).then(res => res.blob()).then(imageBlob => {
         var texture = new THREE.Texture();
         var url = URL.createObjectURL(imageBlob);
@@ -73,11 +75,10 @@ function LoadImageToMaterial(imageURL, callback) {
             texture.needsUpdate = true;
         };
 
-        var material = new THREE.MeshLambertMaterial({
-            map: texture,
-            color: 0xFFFFFF
-        });
+        var images = {
+            diffuse: texture,
+        }
 
-        callback(material);
+        callback(images);
     });
 }
