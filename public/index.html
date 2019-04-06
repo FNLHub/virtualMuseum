@@ -22,17 +22,19 @@
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   </head>
 
+<!-- General Template body to view database entries in firebase -->
   <body>
     <div class="content">
 
-        <form id="add-object-form"></form>
-
-        <ul class="demo-list-two mdl-list" id="object-list" ></ul>
+      <form id="add-object-form">
+        <!-- Objects from database will be loaded to the list dynamically -->
+          <ul class="demo-list-two mdl-list" id="object-list" ></ul>
+      </form>
     </div>
     <p id="load">Firebase SDK Loading&hellip;</p>
   </body>
 
-  
+  <!-- JS for populating list with objects from database -->
   <script src="js/index.js"></script>
 </html>
 

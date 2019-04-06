@@ -15,7 +15,7 @@ class EModel extends WHS.Sphere {
 
     // Constructor required by WHS
     constructor(params = {}) {
-        super(params, BasicSphere.defaults);
+        super(params);
     }
 
     // Build required by WHS. Since Js uses garbage collection, it's variables are all refrences.
