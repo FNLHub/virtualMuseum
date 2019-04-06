@@ -1,218 +1,39 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FNL Virtual Museum</title>
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/5.9.1/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/5.9.1/firebase-auth.js"></script>
+    <script defer src="/__/firebase/5.9.1/firebase-database.js"></script>
+    <script defer src="/__/firebase/5.9.1/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/5.9.1/firebase-storage.js"></script>
+    <script defer src="/__/firebase/5.9.1/firebase-firestore.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
 
-  <!-- update the version number as needed -->
-  <script defer src="/__/firebase/5.8.2/firebase-app.js"></script>
-  <!-- include only the Firebase features as you need -->
-  <script defer src="/__/firebase/5.8.2/firebase-auth.js"></script>
-  <script defer src="/__/firebase/5.8.2/firebase-database.js"></script>
-  <script defer src="/__/firebase/5.8.2/firebase-messaging.js"></script>
-  <script defer src="/__/firebase/5.8.2/firebase-storage.js"></script>
-  <!-- initialize the SDK after all desired features are loaded -->
-  <script defer src="/__/firebase/init.js"></script>
+    <!-- Material Design Lite -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </head>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <body>
+    <div class="content">
 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <form id="add-object-form"></form>
 
-  <style media="screen">
-    #mainPage {
-      text-align: center;
-    }
-
-    .demo-card-wide.mdl-card {
-      width: 512px;
-      margin: 0 auto;
-    }
-  </style>
-
-</head>
-
-<body>
-  <div id="mainPage">
-    <h2>Welcome to FNL's Virtual Museum</h2>
-    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
-      <div class="mdl-card__title">
-        <h2 class="mdl-card__title-text">Welcome</h2>
-      </div>
-      <div class="mdl-card__supporting-text">
-        USER INPUT:
-        <input id="userInput" type="text" placeholder="Enter a Category">
-      </div>
-      <!--Buttons to upload files format:
-        <div class="mdl-card__actions mdl-card--border">
-          <label>LABEL NAME</label>
-        <input type="file" accept = "EXTENSION" id="IDNAME" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-      </div>
-    -->
-      <div class="mdl-card__actions mdl-card--border">
-        <label>.obj File</label>
-        <input type="file" accept=".obj" id="obj"
-          class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-      </div>
-      <div class="mdl-card__actions mdl-card--border">
-
-        <label>.mtl File</label>
-        <input type="file" accept=".mtl" id="mtl"
-          class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-
-      </div>
-      <div class="mdl-card__actions mdl-card--border">
-        <label>.jpg File</label>
-        <input type="file" accept=".jpg" id="jpg"
-          class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-      </div>
-      <div class="mdl-card__actions mdl-card--border">
-
-        <label>.png File</label>
-        <input type="file" accept=".png" id="png"
-          class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-
-      </div>
-      <div>
-        <form>
-          <label>Item Name</label>
-          <input type="text" id="itemName" value="item name" />
-        </form>
-      </div>
-      <div>
-        <form>
-          <label>Item Description</label>
-          <textarea type="text" id="description" rows="2" cols="30"></textarea>
-        </form>
-
-      </div>
-      <div>
-        <form>
-          <label>Your Name</label>
-          <input type="text" id="uploaderName" value="your name" />
-        </form>
-        <div>
-          <button id="submit" type="submit">full send bruh</button>
-        </div>
-        <div class="mdl-card__menu">
-          <button type="file" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-            <i class="material-icons">share</i>
-          </button>
-        </div>
-      </div>
-
+        <ul class="demo-list-two mdl-list" id="object-list" ></ul>
     </div>
+    <p id="load">Firebase SDK Loading&hellip;</p>
+  </body>
 
-
-
-
-
-
-    <script>
-
-      document.addEventListener('DOMContentLoaded', function () {
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        //BUSHER LOOK HERE ************************************ (0)_(0)
-        //Place a change listener on the #png button
-        var fileObj, fileMtl, fileJpg, filePng; //declared global vars for files
-        $("#png").on('change', function (evt) {
-
-          var files = evt.delegateTarget.files;
-          filePng = files[0];
-
-          console.log(filePng);
-        })
-          //BUSHER stop LOOKING HERE ************************************ (-)_(-)
-
-
-
-          //sends obj to firebase storage
-          $("#obj").on('change', function (evt) {
-
-            var files = evt.delegateTarget.files;
-            fileObj = files[0];
-
-            console.log(fileObj);
-          })
-
-          //send mtl file
-          $("#mtl").on('change', function (evt) {
-
-            var files = evt.delegateTarget.files;
-            fileMtl = files[0];
-          
-
-            console.log(fileMtl);
-          })
-          //send jpg file
-          $("#jpg").on('change', function (evt) {
-
-            var files = evt.delegateTarget.files;
-            fileJpg = files[0];
-
-            console.log(fileJpg);
-          })
-          //logs on console everytime the button is clicked
-          $("#submit").on('click', function () {
-            console.log("my button click");
-            var userCategory = $("#userInput").val();
-            if (!userCategory) userCategory = "default"; //just in case user does not type into the input box
-
-            //put the file in storage using the users category
-           firebase.storage().ref().child('pics/' + userCategory + '/' + fileObj.name).put(fileObj).then(function (fileSnapshot) {
-              // Do something after saved in database
-              // How about getting the download url?
-              fileSnapshot.ref.getDownloadURL().then(function (url) {
-                console.log(url);
-              });
-            });
-            firebase.storage().ref().child('pics/' + userCategory + '/' + filePng.name).put(filePng).then(function (fileSnapshot) {
-
-              fileSnapshot.ref.getDownloadURL().then(function (url) {
-                console.log(url);
-              });
-            });
-            firebase.storage().ref().child('pics/' + userCategory + '/' + fileMtl.name).put(fileMtl).then(function (fileSnapshot) {
-
-              fileSnapshot.ref.getDownloadURL().then(function (url) {
-                console.log(url);
-              });
-            });
-            firebase.storage().ref().child('pics/' + userCategory + '/' + fileJpg.name).put(fileJpg).then(function (fileSnapshot) {
-
-              fileSnapshot.ref.getDownloadURL().then(function (url) {
-                console.log(url);
-              });
-            });
-          })
-        })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </script>
-</body>
-
+  
+  <script src="js/index.js"></script>
 </html>
+
+
