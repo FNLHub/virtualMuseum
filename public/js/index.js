@@ -10,15 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         //
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-        // Establish connection with Firebase Firestore
-        try {
-          let app = firebase.app();
-          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
-        }
+
       
 
        var firestore = firebase.firestore();
@@ -35,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
        function renderObjectList(doc){
 
          let li = document.createElement('li');
+
          let content = document.createElement('span');
          let i = document.createElement('i');
          let Title = document.createElement('span');
@@ -43,22 +36,41 @@ document.addEventListener('DOMContentLoaded', function() {
          Title.textContent = doc.data().Title;
          Des.textContent = doc.data().Description;
 
+/*
+         <li class="mdl-list__item mdl-list__item--three-line">
+         <span class="mdl-list__item-primary-content">
+           <i class="material-icons mdl-list__item-avatar">crop_original</i>
+           <span>Bryan Cranston</span>
+           <span class="mdl-list__item-text-body">
+             Bryan Cranston played the role of Walter in Breaking Bad. He is also known
+             for playing Hal in Malcom in the Middle.
+           </span>
+         </span>
+         <span class="mdl-list__item-secondary-content">
+           <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
+         </span>
+       </li>
+*/
+
+
          // set CSS atribuites
-         li.setAttribute('class', 'mdl-list__item mdl-ist__item--two-line');
-         i.setAttribute('class', 'material-icons mdl-list__item-avatar');
-         content.setAttribute('class', 'mdl-list__item-primary-content');
+         li.setAttribute('class', 'mdl-list__item mdl-list__item--three-line');
          Des.setAttribute('class', 'mdl-list__item-sub-title')
+         content.setAttribute('class', 'mdl-list__item-primary-content');
+         i.setAttribute('class', 'material-icons mdl-list__item-avatar');
+         i.innerHTML= "crop_original";
+         
+         
 
          // Save the Unique ID of the item pulled from the Firestore as an attribute
          li.setAttribute('data-id', doc.id);
 
          li.setAttribute('onclick',"viewObject(this)")
-
-         // Set person icon
-         i.innerText = "person";
          
          // Colapse all DOMs together
          li.appendChild(content);
+         content.appendChild(i);
+
          content.appendChild(Title);
          objectList.appendChild(li);
 
@@ -99,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
       // Notify the user that we are loading (waiting for the URLs to be fetched)
-      document.getElementById('load').innerHTML = "Loading: " + me.innerText;
+      //document.getElementById('load').innerHTML = "Loading: " + me.innerText;
 
       // wait 3 seconds before going to the viewer to allow the links to load.
       await new Promise((resolve, reject) => setTimeout(resolve, 3000));
