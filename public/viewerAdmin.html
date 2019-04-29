@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FNL Virtual Museum</title>
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/5.9.1/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/5.9.1/firebase-auth.js"></script>
+  <script defer src="/__/firebase/5.9.1/firebase-database.js"></script>
+  <script defer src="/__/firebase/5.9.1/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/5.9.1/firebase-storage.js"></script>
+  <script defer src="/__/firebase/5.9.1/firebase-firestore.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+  <!-- Material Design Lite -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+  <style>
+    #adminApp {
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .uploadCard{
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<!-- General Template body to view database entries in firebase -->
+
+<body>
+
+  <div id="adminApp">
+    <h2>FNL Scan Admin</h2>
+
+    <div id="loginContainer">
+      <!-- Accent-colored raised button with ripple -->
+      <button id="loginBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+        Login with Google
+      </button>
+      <br><br>
+    </div>
+
+    <div class="uploadCard mdl-card mdl-shadow--2dp mdl-typography--text-center">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">FNL Scan Uploader</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        Browse for Files here SOON:
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+          Upload Files
+        </a>
+      </div>
+      <div class="mdl-card__menu">
+        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+          <i class="material-icons">remove_red_eye</i>
+        </button>
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <!-- JS for Admin -->
+  <script src="js/viewerAdmin.js"></script>
+
+
+</body>
+
+
+
+</html>
