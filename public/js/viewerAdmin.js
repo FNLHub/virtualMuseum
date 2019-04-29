@@ -11,9 +11,11 @@
           if (user) {
             console.log('user logged in: ', user);
             $("#loginBtn").html(user.displayName + " Sign Out");
+            $(".uploadCard").show();
           } else {
             console.log('User logged out');
             $("#loginBtn").html("Sign in with Google");
+            $(".uploadCard").hide();
           }
         });
   
