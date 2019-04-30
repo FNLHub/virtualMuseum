@@ -33,6 +33,9 @@
     .uploadCard{
       margin: 0 auto;
     }
+    #textureLoading, #objectLoading{
+      display: none;
+    }
   </style>
 </head>
 
@@ -56,11 +59,21 @@
         <h2 class="mdl-card__title-text">FNL Scan Uploader</h2>
       </div>
       <div class="mdl-card__supporting-text">
-        Browse for Files here SOON:
+        
+        <div>
+          <div>3D Object (.obj) <i id="objectIcon" class="material-icons">cloud_upload</i></div>
+          <input type="file" accept=".obj" id="browseObject">
+          <div id="objectLoading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+        </div>
+        <div>
+          <div>3D Texture (.jpg) <i id="textureIcon" class="material-icons">cloud_upload</i></div>
+          <input type="file" accept=".jpg" id="browseTexture">
+          <div id="textureLoading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+        </div>
       </div>
       <div class="mdl-card__actions mdl-card--border">
-        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-          Upload Files
+        <a id="submitBtn" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+          Upload to VirtualMuseum
         </a>
       </div>
       <div class="mdl-card__menu">
@@ -75,7 +88,8 @@
 
 
   <!-- JS for Admin -->
-  <script src="js/viewerAdmin.js"></script>
+  <script src="js/viewerAdminAuth.js"></script>
+  <script src="js/viewerAdminUpload.js"></script>
 
 
 </body>
