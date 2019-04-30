@@ -16,7 +16,7 @@ $(document).ready(function () {
 
     //Listener for submit files button
     $("#submitBtn").on('click', function () {
-
+        $(this).hide();
         //hide the browse buttons
         $("#browseObject").hide();
         $("#browseTexture").hide();
@@ -47,6 +47,11 @@ $(document).ready(function () {
                     //now save url to the firebase database (firestore)
                     firebase.firestore().collection("scanUploads").doc(docRef.id).update({
                         objectURL: url
+                    }).then(function(){
+                        $("#previewBtn").show();
+                        $("#previewBtn").on('click', function(){
+                            window.open("viewer.html?scanId="+docRef.id);
+                        })
                     });
 
                 });
