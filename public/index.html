@@ -31,6 +31,14 @@
     .mdl-layout__header .mdl-layout__drawer-button{
       background-color: darkgray;
     }
+    .scan-card{
+      margin: 0 auto;
+      width: 90%;
+      margin-bottom: 5px;
+    }
+    .mdl-card__actions{
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -71,8 +79,18 @@
       <div class="page-content">
         <!-- Your content goes here -->
         <div class="content">
+
+          <div id="scanCards"></div>
+          <div id="splash">
+            <h4>Loading Data...</h4>
+            <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+          </div>
+
+
+
+        <!-- 
           <form id="add-object-form">
-            <!-- Objects from database will be loaded to the list dynamically -->
+            
             <ul class="demo-list-two mdl-list" id="object-list"></ul>
 
             <ul class="demo-list-three mdl-list">
@@ -92,11 +110,10 @@
                 </li>
     
               </ul>
-
-
-
-
           </form>
+        -->
+
+
         </div>
       </div>
     </main>

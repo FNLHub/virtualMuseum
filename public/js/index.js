@@ -1,4 +1,73 @@
 
+
+//Globals here
+
+$(document).ready(function () {
+
+  displayScans();
+
+
+});
+
+function displayScans(argCategory) {
+  //Todo: filter for chosen category
+
+  var query = firebase.firestore().collection('scanUploads').orderBy('name', 'asc');
+  //Real time listener set here
+  query.onSnapshot(function (collection) {
+
+    $("#splash").fadeOut();
+    $("#scanCards").empty(); //clear out div in index.html
+
+    collection.forEach(function (doc) {
+
+      var scanCard =
+        '<div id="card-' + doc.id + '"  class="scan-card mdl-card mdl-shadow--2dp">' +
+          '<div class="mdl-card__title"><h2 class="mdl-card__title-text">' + doc.data().name + '</h2></div>' +
+          '<div class="mdl-card__supporting-text">' +
+            '<div>Category:' + doc.data().category + '</div>' +
+            '<div>Description: ' + doc.data().description + '</div>' +
+            '<div><a href="' + doc.data().objectURL + '" target="_blank">Download Object</a></div>' +
+            '<div><a href="' + doc.data().textureURL + '" target="_blank">Download Texture</a></div>' +
+          '</div>' +
+          '<div class="mdl-card__actions mdl-card--border">' +
+            '<button id="go-' + doc.id + '" class="floatRight mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent">' +
+            'View 3d Scan <i class="material-icons">remove_red_eye</i>' +
+            '</button>' +
+          '</div>' +
+          '<div class="mdl-card__menu">'+
+            '<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">'+
+              '<i class="material-icons">share</i>'+
+            '</button>'+
+          '</div>'+
+        '</div>';
+
+      $("#scanCards").append(scanCard);
+
+      $("#go-" + doc.id).on('click', function () {
+        window.open("viewer.html?scanId=" + doc.id);
+      });
+      /* 
+                if(doc.data().logo)
+                    $("#card-" + doc.id + " .mdl-card__title").css('background-image', 'url(' + doc.data().logo + ')');
+      
+      
+                $("#card-" + doc.id +" .mdl-card__title").on('click', function (e) {
+                    launchSafaris()
+                });
+      
+      
+      */
+
+    });
+
+
+  });
+};
+
+
+
+/*
 document.addEventListener('DOMContentLoaded', function() {
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!
@@ -11,13 +80,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
 
-      
+
 
        var firestore = firebase.firestore();
 
        // Refrence what collection to read from
        const docRef = firestore.collection("3dObjects");
-       
+
        // Refrence the table ID in index.html
        const objectList = document.querySelector('#object-list');
 
@@ -36,22 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
          Title.textContent = doc.data().Title;
          Des.textContent = doc.data().Description;
 
-/*
-         <li class="mdl-list__item mdl-list__item--three-line">
-         <span class="mdl-list__item-primary-content">
-           <i class="material-icons mdl-list__item-avatar">crop_original</i>
-           <span>Bryan Cranston</span>
-           <span class="mdl-list__item-text-body">
-             Bryan Cranston played the role of Walter in Breaking Bad. He is also known
-             for playing Hal in Malcom in the Middle.
-           </span>
-         </span>
-         <span class="mdl-list__item-secondary-content">
-           <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
-         </span>
-       </li>
-*/
-
 
          // set CSS atribuites
          li.setAttribute('class', 'mdl-list__item mdl-list__item--three-line');
@@ -59,14 +112,14 @@ document.addEventListener('DOMContentLoaded', function() {
          content.setAttribute('class', 'mdl-list__item-primary-content');
          i.setAttribute('class', 'material-icons mdl-list__item-avatar');
          i.innerHTML= "crop_original";
-         
-         
+
+
 
          // Save the Unique ID of the item pulled from the Firestore as an attribute
          li.setAttribute('data-id', doc.id);
 
          li.setAttribute('onclick',"viewObject(this)")
-         
+
          // Colapse all DOMs together
          li.appendChild(content);
          content.appendChild(i);
@@ -87,14 +140,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // This function does a call to the storage component of Firebase and save the download URL to session storage
     // Session storage is used instead of Local storage to allow the user to have multiple instances of the app open on one device
-    /*
-        Javascript does not run your code line by line. (Syncronisly) It will not wait for one operation to finish before it starts another.
-        We use the async flag to allow us to do an 'await' for 3 seconds allowing the app to fetch the download links before redirecting to the next page
-    */
+    //
+    //    Javascript does not run your code line by line. (Syncronisly) It will not wait for one operation to finish before it starts another.
+    //    We use the async flag to allow us to do an 'await' for 3 seconds allowing the app to fetch the download links before redirecting to the next page
+    //
     viewObject = async function(me){
       // Get Firebase ID from saved attribute
       var objID = me.getAttribute("data-id");
-        
+
       // Save material.jpg link to session storage
       firebase.storage().ref('3dObjects/' + objID + '/material.jpg').getDownloadURL().then((obj) => {
         sessionStorage.setItem('material-image', obj);
@@ -121,5 +174,5 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
+*/
 
