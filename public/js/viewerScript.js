@@ -1,3 +1,4 @@
+import { debug } from "util";
 
 
 // LUCY URLS are the Default
@@ -121,9 +122,6 @@ scene.add(backLight);
 scene.add(light);
 
 
-
-
-
 var animate = function () {
     requestAnimationFrame(animate);
     controls.update();
@@ -131,8 +129,6 @@ var animate = function () {
 };
 
 animate();
-
-
 
 
 //Utility Function for URL parameters

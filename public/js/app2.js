@@ -1,31 +1,16 @@
 // Basic scene for WHS
 
 const app = new WHS.App([
-    new WHS.ElementModule({
-        container: document.getElementById('app')
-    }),
+    new WHS.ElementModule(), // Apply to DOM.
+    new WHS.SceneModule(), // Create a new THREE.Scene and set it to app.
 
-    new WHS.SceneModule(),
-    new WHS.CameraModule({
-        position: {
-            y: 10,
-            z: 50
-        }
-    }),
+    new WHS.DefineModule('camera', new WHS.PerspectiveCamera({ // Apply a camera.
+        position: new THREE.Vector3(0, 0, 50)
+    })),
 
-    new WHS.RenderingModule({
-        bgColor: 0x151515,
-
-        renderer: {
-            antialias: true,
-            shadowmap: {
-                type: THREE.PCFSoftShadowMap
-            }
-        }
-    },
-        { shadow: true }),
-    new WHS.OrbitControlsModule(),
-    new WHS.ResizeModule()]);
+    new WHS.RenderingModule({ bgColor: 0x162129 }), // Apply THREE.WebGLRenderer
+    new WHS.ResizeModule() // Make it resizable.
+]);
 
 // My Code --------------------------------------------------------------------------------------------------------
 const ObjURL = sessionStorage.getItem("object-file");
@@ -38,6 +23,10 @@ const model = new EModel({
     position: new THREE.Vector3(0, 5, 0)
 });
 model.addTo(app);
+
+
+var controls = new ArcBallControls();
+controls.Setup(model);
 
 // My Code --------------------------------------------------------------------------------------------------------
 
