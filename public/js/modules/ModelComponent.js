@@ -22,7 +22,7 @@ class EModel extends WHS.Sphere {
     // This allows callback functions to modify old variables and still have the changes take place
     build(params) {
         var loader = new THREE.OBJLoader();
-        var mesh = new THREE.Mesh();
+        this.mesh = new THREE.Mesh();
         var material = new THREE.MeshStandardMaterial({
             color: (params.color) ? params.color : 0xFFFFFF,
             roughness: params.roughness
@@ -46,10 +46,10 @@ class EModel extends WHS.Sphere {
 
         // Load the mesh from the URL
         loader.load(params.modelURL, model => {
-            mesh.copy(model);
+            this.mesh.copy(model);
 
             // Go through every mesh in this object and set its material
-            mesh.traverse(child => {
+            this.mesh.traverse(child => {
                 if (child instanceof THREE.Mesh) {
                     child.material = material;
                     child.needsUpdate = true;
@@ -57,7 +57,7 @@ class EModel extends WHS.Sphere {
             });
         });
 
-        return mesh;
+        return this.mesh;
     }
 }
 
