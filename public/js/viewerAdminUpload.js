@@ -25,9 +25,10 @@ $(document).ready(function () {
         $("#textureLoading").show();
         $("#objectLoading").show();
 
-        var title = $("#title").html();
-        var description = $("#description").html();
-        var category = $("#category").html();
+        var title = $("#title").val();
+        var description = $("#description").val();
+        var category = $("#category").val();
+        console.log(description);
         // Add a new document with a generated id.
         firebase.firestore().collection("scanUploads").add({
             name: title,
