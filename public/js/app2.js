@@ -24,7 +24,6 @@ const model = new EModel({
 });
 model.addTo(app);
 
-
 var controls = new ArcBallControls();
 controls.Setup(model);
 

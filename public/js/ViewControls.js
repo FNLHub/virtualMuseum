@@ -14,6 +14,7 @@ class ArcBallControls {
     constructor() {
         this.usingArcBall = false;
         this.lastPositon = new THREE.Vector2();
+        this.rotation = new THREE.Quaternion();
     }
 
     Setup(model) {
@@ -24,17 +25,31 @@ class ArcBallControls {
 
     OnMouseMove(mousePos) {
         if(this.usingArcBall) {
-            // console.log('Mouse: [' + mousePos.x + ', ' + mousePos.y + ']');
-            var a = GetArcBallVector(this.lastPositon);
-            var b = GetArcBallVector(mousePos);
+            var a = this.GetArcBallVector(this.lastPositon);
+            var b = this.GetArcBallVector(mousePos);
 
             var dot = a.x * b.x + a.y * b.y;
-            var angle = Math.acos(Math.min(1.0, dot));
+            var angle = Math.acos(dot);
 
             // Find axis relative to camera
             var axis = Cross(a, b);
+
+            var prevRotation = new THREE.Quaternion();
+            prevRotation.setFromEuler(this.ControlledModel.mesh.rotation);
+
+            var deltaRotation = new THREE.Quaternion();
+            deltaRotation.setFromAxisAngle(axis, angle);
+
+            this.ApplyQuaternion(this.ControlledModel.mesh, deltaRotation.normalize());
+
+            this.lastPositon.x = mousePos.x;
+            this.lastPositon.y = mousePos.y;
         }
     }
+
+    ApplyQuaternion(object, q) {
+        object.quaternion.premultiply( q ).normalize();
+     }
 
     OnMouseDown(button, mouse) {
         if(button != 1 || this.usingArcBall)
@@ -75,7 +90,7 @@ class ArcBallControls {
 // Callback function for when the mouse moves (x, y) in screen space
 function EL_OnMouseMove(event) {
     event.preventDefault();
-    var mouse = getScreenSpaceMouseCoords(event);   
+    var mouse = getScreenSpaceMouseCoords(event);
 
     for (var key in ArcBallControlsCallbackArray) {
         if(isFunction(ArcBallControlsCallbackArray[key].OnMouseMove))
