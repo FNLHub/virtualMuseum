@@ -16,6 +16,7 @@ $(document).ready(function () {
 
     //Listener for submit files button
     $("#submitBtn").on('click', function () {
+        console.log("button Clicked");
         $(this).hide();
         //hide the browse buttons
         $("#browseObject").hide();
@@ -24,12 +25,15 @@ $(document).ready(function () {
         $("#textureLoading").show();
         $("#objectLoading").show();
 
-
+        var title = $("#title").html();
+        var description = $("#description").html();
+        var category = $("#category").html();
         // Add a new document with a generated id.
         firebase.firestore().collection("scanUploads").add({
-            name: objectFile.name,
-            description: "Some description here.",
-            category: "Some Category",
+            name: title,
+            description: description,
+            fileName: objectFile.name,
+            category: category,
             objectURL: "",
             textureURL: ""
         }).then(function (docRef) { //Save to database established

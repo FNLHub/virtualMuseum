@@ -35,12 +35,12 @@ class ArcBallControls {
             var axis = Cross(a, b);
 
             var prevRotation = new THREE.Quaternion();
-            prevRotation.setFromEuler(this.ControlledModel.mesh.rotation);
+            prevRotation.setFromEuler(this.ControlledModel.rotation);
 
             var deltaRotation = new THREE.Quaternion();
             deltaRotation.setFromAxisAngle(axis, angle);
 
-            this.ApplyQuaternion(this.ControlledModel.mesh, deltaRotation.normalize());
+            this.ApplyQuaternion(this.ControlledModel, deltaRotation.normalize());
 
             this.lastPositon.x = mousePos.x;
             this.lastPositon.y = mousePos.y;
