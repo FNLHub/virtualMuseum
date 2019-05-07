@@ -10,24 +10,43 @@ console.log(scanID);
 
 $(document).ready(function () {
 
-    if (scanID) { //get the URLs from the database entry
-        console.log("hit database");
-
-        firebase.firestore().collection("scanUploads").doc(scanID).get().then(function (doc) {
-            if (doc.exists) {
-                console.log("Document data:", doc.data());
-                loadObject(doc.data().objectURL, doc.data().textureURL);
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
+    //first step to sign in for database security.
+    firebase.auth().signInAnonymously().catch(function (error) {
+        // Handle Errors here.
+        console.log(error.code);
+        console.log(error.message)
+    });
+    // auth change listener
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            // User is signed in and can read the database
+            //var isAnonymous = user.isAnonymous;
+            //var uid = user.uid;
+            if (scanID) { //get the URLs from the database entry
+                console.log("hit database");
+        
+                firebase.firestore().collection("scanUploads").doc(scanID).get().then(function (doc) {
+                    if (doc.exists) {
+                        console.log("Document data:", doc.data());
+                        loadObject(doc.data().objectURL, doc.data().textureURL);
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                }).catch(function (error) {
+                    console.log("Error getting document:", error);
+                });
+        
+            } else { //loads default if scanID is not in URL
+                loadObject(lucyObjURL, lucyTextureURL);
             }
-        }).catch(function (error) {
-            console.log("Error getting document:", error);
-        });
 
-    } else { //loads default if scanID is not in URL
-        loadObject(lucyObjURL, lucyTextureURL);
-    }
+        } else {
+            // User is signed out.
+        }
+    });
+
+
 
 
 });
@@ -40,35 +59,35 @@ function loadObject(argObject, argTexture) {
     // load a resource
     textureLoader.load(argTexture, function (texture) {  // onLoad callback
 
-            // create the material when texture jpg is loaded
-            var basicMaterial = new THREE.MeshBasicMaterial({
-                map: texture
+        // create the material when texture jpg is loaded
+        var basicMaterial = new THREE.MeshBasicMaterial({
+            map: texture
+        });
+
+        // Now get the obj file
+        var objLoader = new THREE.OBJLoader();
+        objLoader.load(argObject, function (object) {
+
+            // This crazy code sets the material (thanks to Stack Exchange!)
+            object.traverse(function (node) {
+                if (node.isMesh) node.material = basicMaterial;
             });
 
-            // Now get the obj file
-            var objLoader = new THREE.OBJLoader();
-            objLoader.load(argObject, function (object) {
+            scene.add(object);
 
-                // This crazy code sets the material (thanks to Stack Exchange!)
-                object.traverse(function (node) {
-                    if (node.isMesh) node.material = basicMaterial;
-                });
+            var boundingBox = new THREE.Box3();
 
-                scene.add(object);
+            boundingBox.setFromObject(object);
+            var center = boundingBox.getCenter();
 
-                var boundingBox = new THREE.Box3();
+            // set camera to rotate around center of object
+            controls.target = center;
 
-                boundingBox.setFromObject(object);
-                var center = boundingBox.getCenter();
+            $("#progress").hide();
 
-                // set camera to rotate around center of object
-                controls.target = center;
+        });
 
-                $("#progress").hide();
-
-            });
-
-        },
+    },
 
         // onProgress callback currently not supported
         undefined,
