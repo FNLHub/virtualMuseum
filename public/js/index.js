@@ -3,9 +3,40 @@
 
 $(document).ready(function () {
 
-  displayScans();
+  //first step to sign in for database security.
+  firebase.auth().signInAnonymously().catch(function(error) {
+    // Handle Errors here.
+    console.log(error.code);
+    console.log(error.message)
+  });
+  // auth change listener
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in and can read the database
+      //var isAnonymous = user.isAnonymous;
+      //var uid = user.uid;
+      console.log("user: "+user.isAnonymous);
+      getCategories();
+      displayScans();
+
+    } else {
+      // User is signed out.
+    }
+  });
 
 });
+
+function getCategories(){
+  let query = firebase.firestore().collection('scanUploads').orderBy('category', 'asc');
+  query.get().then(function(collection){
+
+    collection.forEach(function(doc){
+      console.log(doc.data().category);
+    });
+
+  });
+
+}
 
 function displayScans(argCategory) {
   //Todo: filter for chosen category
