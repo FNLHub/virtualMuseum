@@ -2,20 +2,13 @@
 // Description: Model class that can be easily used to lood an OBJ(wavefront)
 // as well as its texture image from web URLs. This implements WHS (Whitestorm JS)
 
-// Eric Model :P
 // Sphere was the only thing I could inherit to stop WHS from crashing :/ It works so dont question it.
-class EModel extends WHS.Sphere {
-
-    // Required by WHS
-    static defaults = {
-        imageURL: '',
-        modelURL: '',
-        roughness: 1,
-    };
+class Model extends Module {
 
     // Constructor required by WHS
     constructor(params = {}) {
         super(params);
+        this.bshowingMaterial = false;
     }
 
     // Build required by WHS. Since Js uses garbage collection, it's variables are all refrences.
@@ -23,24 +16,30 @@ class EModel extends WHS.Sphere {
     build(params) {
         var loader = new THREE.OBJLoader();
         this.mesh = new THREE.Mesh();
-        var material = new THREE.MeshStandardMaterial({
+        this.material = new THREE.MeshPhysicalMaterial({
             color: (params.color) ? params.color : 0xFFFFFF,
-            roughness: params.roughness
+            roughness: (params.roughness) ? params.roughness : 0.8,
+        });
+
+        this.clearMaterial = new THREE.MeshPhysicalMaterial({
+            color: (params.color) ? params.color : 0xFFFFFF,
+            roughness: (params.roughness) ? params.roughness : 0.8,
         });
 
         // Load basic cube if no model url is given
-        if(params.modelURL == '') {
+        if (params.modelURL == '') {
             return new THREE.Mesh(
-                new THREE.BoxGeometry( 10, 10, 10 ),
-                material
+                new THREE.BoxGeometry(10, 10, 10),
+                this.material
             );
         }
 
         // Load the image if it exists
-        if (params.imageURL != '') {
-            LoadImagesFromLink(imageURL, images => {
-                material.map = images.diffuse;
-                material.needsUpdate = true;
+        if (params.textureURL != '') {
+            LoadImagesFromLink(params.textureURL, textures => {
+                this.material.map = textures.diffuse;
+                this.material.needsUpdate = true;
+                this.bshowingMaterial = true;
             });
         }
 
@@ -48,16 +47,46 @@ class EModel extends WHS.Sphere {
         loader.load(params.modelURL, model => {
             this.mesh.copy(model);
 
-            // Go through every mesh in this object and set its material
-            this.mesh.traverse(child => {
-                if (child instanceof THREE.Mesh) {
-                    child.material = material;
-                    child.needsUpdate = true;
-                }
-            });
+            this.setMaterial(this.material);
+
+            if (this.isFunction(params.callback))
+                params.callback(this.getCenter());
+
         });
 
         return this.mesh;
+    }
+
+    getCenter() {
+        var boundingBox = new THREE.Box3();
+        boundingBox.setFromObject(this.mesh);
+
+        return boundingBox.getCenter();
+    }
+
+    toggleMaterial() {
+        this.bshowingMaterial = !this.bshowingMaterial;
+
+        if (!this.bshowingMaterial) {
+            this.setMaterial(this.clearMaterial);
+        } else {
+            this.setMaterial(this.material);
+        }
+    }
+
+    toggleWireframe() {
+        this.material.wireframe = !this.material.wireframe;
+        this.clearMaterial.wireframe =  !this.clearMaterial.wireframe;
+    }
+
+    setMaterial(material) {
+        // Go through every mesh in this object and set its material
+        this.mesh.traverse(child => {
+            if (child instanceof THREE.Mesh) {
+                child.material = material;
+                child.needsUpdate = true;
+            }
+        });
     }
 }
 

@@ -1,0 +1,48 @@
+#viewCanvas {
+    position: relative;
+}
+
+#header {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+#controls {
+    display: none;
+    position: absolute;
+    right: 0px;
+    width: 300px;
+    padding: 50px;
+}
+
+#spinner {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: visible;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.mdl-card__supporting-text {
+    color: aliceblue;
+}
+
+.demo-card-wide.mdl-card {
+    background: #363636;
+}
+
+.demo-card-wide > .mdl-card__title {
+    color: aliceblue;
+    height: 75px;
+    background: #363636;
+}
+
+.demo-card-wide > .mdl-card__menu {
+    color: aliceblue;
+}

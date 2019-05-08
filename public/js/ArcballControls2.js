@@ -1,13 +1,30 @@
+
 // By Eric Marquez
 // This view controller uses the "Arc Ball" implementation to rotate a given model
+
+var draggable = interact('.drag').draggable({
+    listeners: {
+        start(event) {
+            EL_OnMouseDown(event);
+        },
+        end(event) {
+            EL_OnMouseUp(event);
+        },
+        move(event) {
+            EL_OnMouseMove(event);
+        },
+    }
+})
+
+draggable.options.styleCursor = false;
 
 // Setup variables
 var ArcBallControlsCallbackArray = [];
 
 // Define callbacks
-document.addEventListener('mousemove', EL_OnMouseMove, false);
-document.addEventListener('mousedown', EL_OnMouseDown, false);
-document.addEventListener('mouseup', EL_OnMouseUp, false);
+// document.addEventListener('mousemove', EL_OnMouseMove, false);
+// document.addEventListener('mousedown', EL_OnMouseDown, false);
+// document.addEventListener('mouseup', EL_OnMouseUp, false);
 
 // Class used to control a model using the "Arc ball" method
 class ArcBallControls {
@@ -24,7 +41,7 @@ class ArcBallControls {
     }
 
     OnMouseMove(mousePos) {
-        if(this.usingArcBall) {
+        if (this.usingArcBall) {
             var a = this.GetArcBallVector(this.lastPositon);
             var b = this.GetArcBallVector(mousePos);
 
@@ -48,11 +65,11 @@ class ArcBallControls {
     }
 
     ApplyQuaternion(object, q) {
-        object.quaternion.premultiply( q ).normalize();
-     }
+        object.quaternion.premultiply(q).normalize();
+    }
 
     OnMouseDown(button, mouse) {
-        if(button != 1 || this.usingArcBall)
+        if (button != 1 || this.usingArcBall)
             return;
 
         this.usingArcBall = true;
@@ -63,7 +80,7 @@ class ArcBallControls {
     }
 
     OnMouseUp(button) {
-        if(button != 1 || !this.usingArcBall)
+        if (button != 1 || !this.usingArcBall)
             return;
 
         this.usingArcBall = false;
@@ -77,7 +94,7 @@ class ArcBallControls {
         P.x = mouse.x;
         P.y = mouse.y;
 
-        if(r_2 <= 1.0) {
+        if (r_2 <= 1.0) {
             P.z = Math.sqrt(1 - r_2);
         } else {
             P.normalize();
@@ -89,11 +106,10 @@ class ArcBallControls {
 
 // Callback function for when the mouse moves (x, y) in screen space
 function EL_OnMouseMove(event) {
-    event.preventDefault();
     var mouse = getScreenSpaceMouseCoords(event);
 
     for (var key in ArcBallControlsCallbackArray) {
-        if(isFunction(ArcBallControlsCallbackArray[key].OnMouseMove))
+        if (isFunction(ArcBallControlsCallbackArray[key].OnMouseMove))
             ArcBallControlsCallbackArray[key].OnMouseMove(mouse); // run your function
     }
 }
@@ -104,7 +120,7 @@ function EL_OnMouseDown(event) {
     var mouse = getScreenSpaceMouseCoords(event);
 
     for (var key in ArcBallControlsCallbackArray) {
-        if(isFunction(ArcBallControlsCallbackArray[key].OnMouseDown))
+        if (isFunction(ArcBallControlsCallbackArray[key].OnMouseDown))
             ArcBallControlsCallbackArray[key].OnMouseDown(button, mouse); // run your function
     }
 }
@@ -114,14 +130,13 @@ function EL_OnMouseUp(event) {
     var button = getTriggeredMouseButton(event);
 
     for (var key in ArcBallControlsCallbackArray) {
-        if(isFunction(ArcBallControlsCallbackArray[key].OnMouseUp))
+        if (isFunction(ArcBallControlsCallbackArray[key].OnMouseUp))
             ArcBallControlsCallbackArray[key].OnMouseUp(button); // run your function
     }
 }
 
 // Adds to the array of callback functions
-function AddMouseCallbackFunctions(controls)
-{
+function AddMouseCallbackFunctions(controls) {
     ArcBallControlsCallbackArray.push(controls);
 }
 
@@ -131,9 +146,10 @@ function isFunction(functionToCheck) {
 }
 
 function getScreenSpaceMouseCoords(event) {
+    // console.log(event.client);
     var mouse = new THREE.Vector2();
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    mouse.x = (event.client.x / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.client.y / window.innerHeight) * 2 + 1;
 
     return mouse;
 }

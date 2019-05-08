@@ -1,54 +1,82 @@
-<html>
+<!-- <html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FNL Virtual Museum</title>
-  
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/5.9.1/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/5.9.1/firebase-auth.js"></script>
-    <script defer src="/__/firebase/5.9.1/firebase-database.js"></script>
-    <script defer src="/__/firebase/5.9.1/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/5.9.1/firebase-storage.js"></script>
-    <script defer src="/__/firebase/5.9.1/firebase-firestore.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
-  
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  
-    <!-- Material Design Lite -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-  
-    <style>
-        body{
-            background: black;
-            color: white;
-        }
 
-    </style>
+    <!-- update the version number as needed -->
+<script defer src="/__/firebase/5.9.1/firebase-app.js"></script>
+<!-- include only the Firebase features as you need -->
+<script defer src="/__/firebase/5.9.1/firebase-auth.js"></script>
+<script defer src="/__/firebase/5.9.1/firebase-database.js"></script>
+<script defer src="/__/firebase/5.9.1/firebase-messaging.js"></script>
+<script defer src="/__/firebase/5.9.1/firebase-storage.js"></script>
+<script defer src="/__/firebase/5.9.1/firebase-firestore.js"></script>
+<!-- initialize the SDK after all desired features are loaded -->
+<script defer src="/__/firebase/init.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<!-- Material Design Lite -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+<link rel="stylesheet" href="css/ModelViewer.css">
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+<style>
+    body {
+        background: black;
+        color: white;
+    }
+</style>
 </head>
 
 <body>
-    <div id="header">
-        <h3>FNL 3d Scanner Project</h3>
-        <div id="progress">Loading huge scan... <div class="mdl-spinner mdl-js-spinner is-active"></div></div>
-        <!--
-        <button id="theBtn">Switch Objs</button>
-        -->
+
+    <div id='viewCanvas'>
+        <div id="progress">
+            <div id="spinner">
+                <div class="mdl-spinner mdl-js-spinner is-active"></div>
+            </div>
+        </div>
+        <div id="header">
+            <h3>FNL 3D Scanner Project</h3>
+        </div>
+
+        <div id="controls">
+            <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Controls</h2>
+                </div>
+                <div class="mdl-card__actions mdl-card--border"></div>
+                <div class="mdl-card__supporting-text">
+                    Brightness:
+                    <input id="brightSlider" class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="50"
+                        tabindex="0">
+                    Hide Texture:
+                    <label id="hideTexture" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+                        <input type="checkbox" id="switch-1" class="mdl-switch__input">
+                        <span class="mdl-switch__label"></span>
+                    </label>
+                    Wireframe:
+                    <label id="wireframe" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+                        <input type="checkbox" id="switch-2" class="mdl-switch__input">
+                        <span class="mdl-switch__label"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
     </div>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js"></script>
     <script src="js/libs/OrbitControls.js"></script>
-    <script src="js/ArcballControls.js"></script>
+    <script src="js/ArcballControls2.js"></script>
     <script src="js/libs/OBJLoader.js"></script>
-    <!--<script src="js/libs/MTLLoader.js"></script>-->
-    <script src="js/viewerScript2.js"></script>
-
+    <script src="js/core/ThreejsApp.js"></script>
+    <script src="js/modules/Model.js"></script>
+    <script src="js/ModelViewer.js"></script>
 </body>
 
 </html>
