@@ -1,4 +1,5 @@
 
+window.addEventListener( 'resize', onWindowResize, false );
 
 // LUCY URLS are the Default
 var lucyObjURL = 'https://firebasestorage.googleapis.com/v0/b/fnlvirtualmuseum.appspot.com/o/3dObjects%2FyG5ioP3k8TbFhv1y2iyD%2FHigh_Res.obj?alt=media&token=14b9b670-d665-43cd-8608-d3021c77f182';
@@ -34,6 +35,10 @@ var animate = function () {
 };
 
 animate();
+
+function onWindowResize() {
+    app.onWindowResize();
+}
 
 // State change functions--------------------------------------------------------------------------
 $(document).ready(function () {
