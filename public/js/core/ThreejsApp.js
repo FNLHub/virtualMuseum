@@ -40,6 +40,7 @@ class ThreejsApp {
         this.controls.enableDamping = true;
         this.controls.dampingFactor = 0.25;
         this.controls.enableZoom = true;
+        this.controls.enablePan = false;
 
         this.elements = [];
     }

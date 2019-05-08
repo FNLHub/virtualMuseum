@@ -16,7 +16,7 @@ class Model extends Module {
     build(params) {
         var loader = new THREE.OBJLoader();
         this.mesh = new THREE.Mesh();
-        this.material = new THREE.MeshPhysicalMaterial({
+        this.material = new THREE.MeshBasicMaterial({
             color: (params.color) ? params.color : 0xFFFFFF,
             roughness: (params.roughness) ? params.roughness : 0.8,
         });
@@ -85,6 +85,8 @@ class Model extends Module {
             if (child instanceof THREE.Mesh) {
                 child.material = material;
                 child.needsUpdate = true;
+
+                console.log(child);
             }
         });
     }
