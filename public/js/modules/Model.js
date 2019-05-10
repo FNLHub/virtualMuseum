@@ -56,7 +56,11 @@ class Model extends Module {
                 this.mesh = model;
             }
 
-            this.setMaterial(this.material);
+            if (!this.bshowingMaterial) {
+                this.setMaterial(this.clearMaterial);
+            } else {
+                this.setMaterial(this.material);
+            }
 
             if (this.isFunction(params.callback))
                 params.callback(this.getCenter());

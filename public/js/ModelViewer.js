@@ -91,7 +91,6 @@ function OnAuthentication(modelURL, textureURL) {
 function OnModelLoaded(center) {
     app.setFocus(center);
     $("#progress").hide();
-    $("#controls").show();
 }
 
 function ChangeBrightness(value) {
