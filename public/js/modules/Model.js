@@ -8,13 +8,13 @@ class Model extends Module {
     // Constructor required by WHS
     constructor(params = {}) {
         super(params);
-        this.bshowingMaterial = false;
+        this.bshowingMaterial = true;
     }
 
     // Build required by WHS. Since Js uses garbage collection, it's variables are all refrences.
     // This allows callback functions to modify old variables and still have the changes take place
     build(params) {
-        var loader = new THREE.OBJLoader();
+        var meshLoader = new THREE.OBJLoader();
         this.mesh = new THREE.Mesh();
         this.material = new THREE.MeshPhysicalMaterial({
             color: (params.color) ? params.color : 0xFFFFFF,
@@ -39,12 +39,11 @@ class Model extends Module {
             LoadImagesFromLink(params.textureURL, textures => {
                 this.material.map = textures.diffuse;
                 this.material.needsUpdate = true;
-                this.bshowingMaterial = true;
             });
         }
 
         // Load the mesh from the URL
-        loader.load(params.modelURL, model => {
+        meshLoader.load(params.modelURL, model => {
 
             // If this model has already been added to a world,
             // remove it, modify it, and add it back.
