@@ -16,7 +16,7 @@ class Model extends Module {
     build(params) {
         var loader = new THREE.OBJLoader();
         this.mesh = new THREE.Mesh();
-        this.material = new THREE.MeshBasicMaterial({
+        this.material = new THREE.MeshPhysicalMaterial({
             color: (params.color) ? params.color : 0xFFFFFF,
             roughness: (params.roughness) ? params.roughness : 0.8,
         });
@@ -45,7 +45,16 @@ class Model extends Module {
 
         // Load the mesh from the URL
         loader.load(params.modelURL, model => {
-            this.mesh.copy(model);
+
+            // If this model has already been added to a world,
+            // remove it, modify it, and add it back.
+            if(this.world) {
+                this.world.remove(this.mesh);
+                this.mesh = model;
+                this.world.add(this.mesh);
+            } else {
+                this.mesh = model;
+            }
 
             this.setMaterial(this.material);
 
@@ -85,8 +94,6 @@ class Model extends Module {
             if (child instanceof THREE.Mesh) {
                 child.material = material;
                 child.needsUpdate = true;
-
-                console.log(child);
             }
         });
     }

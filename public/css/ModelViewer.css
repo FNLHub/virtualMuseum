@@ -4,16 +4,17 @@
 
 #header {
     position: absolute;
-    left: 20px;
-    top: 20px;
+    top: 25px;
 }
 
 #controls {
-    display: none;
     position: absolute;
-    right: 0px;
-    width: 300px;
-    padding: 50px;
+    right:25px;
+    top: 25px;
+}
+
+#logo {
+    width: 25vw;
 }
 
 #spinner {
@@ -29,20 +30,15 @@
     right: 0;
 }
 
-.mdl-card__supporting-text {
-    color: aliceblue;
-}
-
-.demo-card-wide.mdl-card {
+dialog {
+    color: white;
     background: #363636;
 }
 
-.demo-card-wide > .mdl-card__title {
-    color: aliceblue;
-    height: 75px;
-    background: #363636;
+.mdl-dialog__content {
+    color: aqua;
 }
 
-.demo-card-wide > .mdl-card__menu {
-    color: aliceblue;
+.mdl-button {
+    color: white;
 }

@@ -7,6 +7,10 @@ class Module {
 
     build(params) { return null; }
 
+    setWorld(world) {
+        this.world = world;
+    }
+
     // Checks to see if a property is a valid function
     isFunction(functionToCheck) {
         return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
@@ -41,8 +45,6 @@ class ThreejsApp {
         this.controls.dampingFactor = 0.25;
         this.controls.enableZoom = true;
         this.controls.enablePan = false;
-
-        this.elements = [];
     }
 
     add(element) {
@@ -51,12 +53,22 @@ class ThreejsApp {
         }
 
         if (element instanceof Module && element.content != null) {
-            this.elements.push(element.content);
+            element.setWorld(this);
             this.scene.add(element.content);
 
         } else {
-            this.elements.push(element);
             this.scene.add(element);
+        }
+    }
+
+    remove(element) {
+        if (this.scene == null) {
+            return;
+        }
+
+        if (element instanceof Module && element.content != null) {
+            element.setWorld(this);
+            this.scene.remove(element.content);
         }
     }
 
