@@ -118,7 +118,7 @@ function saveScanInfo() {
       published: $('#scanPublished').prop('checked'),
     }).then(function (docRef) {
       curScanID = docRef.id;
-      window.location.replace("detail.html?scanId="+curScanID);
+      window.location.replace("editor.html?scanId="+curScanID);
       setDocListener();
     });
 
@@ -241,7 +241,7 @@ function newScanUpload() {
   $("#scanFiles").hide();
   $("#saveScanInfoBtn").html("New Scan Info");
 
-  window.location.replace("detail.html");
+  window.location.replace("editor.html");
 
 }
 

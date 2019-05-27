@@ -25,24 +25,89 @@
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
   <style>
+    main {
+      background: oldlace;
+    }
+
     .mdl-layout__header-row {
-      background-color: darkgray;
+      background: url('img/background.png') center/cover;
     }
-    .mdl-layout__header .mdl-layout__drawer-button{
-      background-color: darkgray;
+
+    .mdl-layout__header .mdl-layout__drawer-button {
+      background: transparent;
     }
-    .scan-card{
+
+    .mdl-layout__drawer {
+      color: oldlace;
+      background: url('img/backgroundVert.png') center/cover;
+ 
+    }
+    .mdl-layout__drawer .mdl-navigation .mdl-navigation__link{
+      color: oldlace;
+      
+    }
+
+
+    .mdl-card {
+      width: 375px;
+      margin: 0 auto;
+      margin-bottom: 1em;
+      border: 2px solid maroon;
+    }
+    .mdl-card>.mdl-card__title {
+      color: #fff;
+      height: 176px;
+      background: url('img/default.PNG') center / cover;
+    }
+    .mdl-card>.mdl-card__supporting-text {
+      background-image: url('img/dot.png');
+    }
+    .mdl-card>.mdl-card__menu {
+      color: #fff;
+    }
+    .mdl-card .mdl-card__actions {
+      background: URL('img/background.png') center / cover;
+      color: white;
+    }
+    .mdl-card .mdl-card__actions button {
+      color: white;
+    }
+    .mdl-card .mdl-card__actions {
+      text-align: center;
+    }
+    #cardDescription{
+      margin-bottom: 1em;
+    }
+
+
+    .scan-card {
       margin: 0 auto;
       width: 90%;
       margin-bottom: 5px;
     }
-    .mdl-card__actions{
+
+
+    .page-content {
+      margin-top: 1em;
+      margin-bottom: 20px;
+    }
+
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background: URL('img/background.png') center / cover;
+      color: white;;
       text-align: center;
+      z-index: 2;
+    }
+
+    .hide {
+      display: none;
     }
   </style>
 </head>
-
-<!-- General Template body to view database entries in firebase -->
 
 <body>
 
@@ -52,7 +117,9 @@
 
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
-        <div class="mdl-layout-spacer">Virtual Museum</div>
+        <span class="mdl-layout-title">Virtual Museum</span>
+        <div class="mdl-layout-spacer"></div>
+
         <div
           class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
           <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
@@ -66,9 +133,9 @@
     </header>
 
     <div class="mdl-layout__drawer">
-      <span class="mdl-layout-title">VirtualMuseum</span>
+      <span class="mdl-layout-title">Virtual Museum</span>
       <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="">Instuctions</a>
+        <a class="mdl-navigation__link" href="">Home</a>
         <a class="mdl-navigation__link" href="">Something</a>
         <a class="mdl-navigation__link" href="">Something Else</a>
         <a class="mdl-navigation__link" href="">About</a>
@@ -78,45 +145,55 @@
     <main class="mdl-layout__content">
       <div class="page-content">
         <!-- Your content goes here -->
-        <div class="content">
 
-          <div id="scanCards"></div>
-          <div id="splash">
-            <h4>Loading Data...</h4>
+          <div id="mainLoadingBar" class="hide">
             <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
           </div>
 
+          <div id="frontPage" class="">
+
+            <div class="main-card mdl-card mdl-shadow--2dp mdl-card--border">
+
+              <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Friday Night Lab</h2>
+              </div>
+
+              <div class="mdl-card__supporting-text">
+                <p>This is a repository of 3d scans produced in the COS Friday Night Lab Program.</p>
+                <button id="showAllScansBtn" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                  <i class="material-icons">list</i> Show All Scans
+                </button>
+                <br><br>
+                <div>Category List Soon!</div>
+              </div>
+
+              <div class="mdl-card__actions mdl-card--border">
+                <p>Awesomesauce!</p>
+
+              </div>
+              <div class="mdl-card__menu">
+                <button id="shareBtn" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                  <i class="material-icons">share</i>
+                </button>
+                <button id="previewBtn" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                  <i class="material-icons">remove_red_eye</i>
+                </button>
+              </div>
+
+            </div>
 
 
-        <!-- 
-          <form id="add-object-form">
-            
-            <ul class="demo-list-two mdl-list" id="object-list"></ul>
+          </div>
 
-            <ul class="demo-list-three mdl-list">
+          <div id="scanCards" class="hide"></div>
 
-                <li class="mdl-list__item mdl-list__item--three-line">
-                  <span class="mdl-list__item-primary-content">
-                    <i class="material-icons mdl-list__item-avatar">crop_original</i>
-                    <span>Bryan Cranston</span>
-                    <span class="mdl-list__item-text-body">
-                      Bryan Cranston played the role of Walter in Breaking Bad. He is also known
-                      for playing Hal in Malcom in the Middle.
-                    </span>
-                  </span>
-                  <span class="mdl-list__item-secondary-content">
-                    <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">star</i></a>
-                  </span>
-                </li>
-    
-              </ul>
-          </form>
-        -->
-
-
-        </div>
       </div>
+      <footer class="footer">
+          <p>2019-2020 COS Friday Night Lab</p>
+        </footer>
     </main>
+
+
 
   </div>
 
