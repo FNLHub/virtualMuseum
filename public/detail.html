@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FNL Virtual Museum Detail</title>
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/5.9.1/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/5.9.1/firebase-auth.js"></script>
+  <script defer src="/__/firebase/5.9.1/firebase-database.js"></script>
+  <script defer src="/__/firebase/5.9.1/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/5.9.1/firebase-storage.js"></script>
+  <script defer src="/__/firebase/5.9.1/firebase-firestore.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+  <!-- Material Design Lite -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+  <style>
+    .detail-card {
+      width: 375px;
+      margin: 0 auto;
+      margin-bottom: 5px;
+    }
+
+    .detail-card>.mdl-card__title {
+      color: #fff;
+      height: 176px;
+      background: url('img/default.PNG') center / cover;
+    }
+
+    .detail-card>.mdl-card__menu {
+      color: #fff;
+    }
+
+    .mdl-list {
+      width: 100%;
+    }
+
+    #textureLoading,
+    #objectLoading,
+    #snipLoading,
+    #scanInfoLoading,
+    #scanFiles,
+    .hide {
+      display: none;
+    }
+
+    .floatRight {
+      float: right;
+    }
+
+    .fileUpload {
+      border: 1px solid lightgrey;
+      margin-bottom: 1em;
+    }
+
+    #scanFiles {
+      margin: 5px;
+    }
+
+    #cardDescription {
+      margin-bottom: 1em;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="mdl-layout mdl-js-layout mdl-color--grey-100">
+    <main class="mdl-layout__content">
+
+      <h3>Museum Detail Page</h3>
+
+      <div class="detail-card mdl-card mdl-shadow--2dp">
+
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">Title Here</h2>
+        </div>
+
+        <div class="mdl-card__supporting-text">
+          <div id="cardDescription">Scan Description</div>
+          <div>Category: <span id="cardCategory">Scan Category</span></div>
+          <div>Size: <span id="cardObjectSize">21 mb</span></div>
+        </div>
+
+        <div class="mdl-card__actions mdl-card--border">
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">cloud_download</i> Object
+          </button>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">cloud_download</i> Texture
+          </button>
+
+        </div>
+        <div class="mdl-card__menu">
+          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">share</i>
+          </button>
+          <button id="previewBtn" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">remove_red_eye</i>
+          </button>
+        </div>
+
+      </div>
+
+
+
+
+
+      <div class="detail-card mdl-card mdl-shadow--2dp">
+
+        <div class="mdl-card__supporting-text">
+
+          <div id="scanInfo">
+            <div class="t1 mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="titleInput">
+              <label class="mdl-textfield__label" for="titleInput">Title...</label>
+            </div>
+            <div class="t2 mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="categoryInput">
+              <label class="mdl-textfield__label" for="categoryInput">Category...</label>
+            </div>
+            <div class="t3 mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <textarea class="mdl-textfield__input" type="text" rows="3" id="descriptionInput"></textarea>
+              <label class="mdl-textfield__label" for="descriptionInput">Scan Description...</label>
+            </div>
+            <div id="scanInfoLoading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+            <button id="saveScanInfoBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+              New Scan Info
+            </button>
+          </div>
+
+          <div id="scanFiles">
+
+            <div class="fileUpload">
+              <button id="objectBtn"
+                class="floatRight hide mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                Upload
+              </button>
+              <div><strong>Object File</strong></div>
+              <input id="objectFileInput" type="file" accept=".obj">
+              <div id="objectLoading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+              <div id="detailObjectURL">Texture URL...</div>
+            </div>
+
+            <div class="fileUpload">
+              <button id="textureBtn"
+                class="floatRight hide mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                Upload
+              </button>
+              <div><strong>Texture File</strong></div>
+              <input id="textureFileInput" type="file" accept=".jpg">
+              <div id="textureLoading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+              <div id="detailTextureURL">Texture URL...</div>
+            </div>
+
+            <div class="fileUpload">
+              <button id="snipBtn"
+                class="floatRight hide mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                Upload
+              </button>
+              <div><strong>Preview Snip File</strong></div>
+              <input id="snipFileInput" type="file" accept=".png">
+              <div id="snipLoading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+              <div id="detailSnipURL">Preview URL...</div>
+            </div>
+
+          </div>
+
+
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            Preview Scan
+          </a>
+        </div>
+
+      </div>
+
+
+    </main>
+  </div>
+
+
+  <!-- JS for populating list with objects from database -->
+  <script src="js/detail.js"></script>
+
+</body>
+
+</html>

@@ -57,7 +57,18 @@ $(document).ready(function () {
             //var isAnonymous = user.isAnonymous;
             //var uid = user.uid;
             if (scanID) { //get the URLs from the database entry
+
                 firebase.firestore().collection("scanUploads").doc(scanID).get().then(function (doc) {
+                    if (doc.exists) {
+                        OnAuthentication(doc.data().objectURL, doc.data().textureURL);
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                }).catch(function (error) {
+                    console.log("Error getting document:", error);
+                });
+                firebase.firestore().collection("NewUploads").doc(scanID).get().then(function (doc) {
                     if (doc.exists) {
                         OnAuthentication(doc.data().objectURL, doc.data().textureURL);
                     } else {

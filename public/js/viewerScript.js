@@ -24,10 +24,10 @@ $(document).ready(function () {
             //var uid = user.uid;
             if (scanID) { //get the URLs from the database entry
                 console.log("hit database");
-        
+       
                 firebase.firestore().collection("scanUploads").doc(scanID).get().then(function (doc) {
                     if (doc.exists) {
-                        console.log("Document data:", doc.data());
+                        //console.log("Document data:", doc.data());
                         loadObject(doc.data().objectURL, doc.data().textureURL);
                     } else {
                         // doc.data() will be undefined in this case
@@ -36,6 +36,9 @@ $(document).ready(function () {
                 }).catch(function (error) {
                     console.log("Error getting document:", error);
                 });
+               
+
+ 
         
             } else { //loads default if scanID is not in URL
                 loadObject(lucyObjURL, lucyTextureURL);
