@@ -25,6 +25,33 @@ $(document).ready(function () {
   $("#previewBtn").on('click',function(){
     window.open("viewer.html?scanId=" + curScanID);
   })
+  $("#prevBtn").on('click',function(){
+    window.open("viewer.html?scanId=" + curScanID);
+  })
+  $("#shareBtn").on('click',function(){
+    //only for mobile
+    if (navigator.share) {
+      navigator.share({
+          title: 'FNL 3d Scan',
+          text: 'Check out this awesome 3d scan — let it load in!',
+          url: 'viewer.html?scanId=' + curScanID
+      })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error));
+    }else{
+      //different solution for desktop
+      window.open("viewer.html?scanId=" + curScanID);
+    }
+  })
+
+  
+  $("#objDownloadBtn").on('click',function(){
+    window.open(objectFileURL);
+  })
+  $("#texDownloadBtn").on('click',function(){
+    window.open(textureFileURL, "_blank");
+  })
+
 
   //file system listeners
   $("#snipFileInput").on('change', function (evt) {
@@ -43,6 +70,14 @@ $(document).ready(function () {
     $("#objectBtn").show();
   });
 
+  //buttons
+
+  $("#newBtn").on('click',function(){
+    //TODO: make this less blunt
+    //location.reload();
+    window.open("detail.html");
+  })
+
 });
 
 
@@ -60,7 +95,8 @@ function saveScanInfo() {
     firebase.firestore().collection("NewUploads").add({
       title: userTitle,
       category: userCat,
-      description: userDesc
+      description: userDesc,
+      published: $('#scanPublished').prop('checked'),
     }).then(function (docRef) {
       curScanID = docRef.id;
       setDocListener();
@@ -71,7 +107,8 @@ function saveScanInfo() {
     firebase.firestore().collection("NewUploads").doc(curScanID).update({
       title: userTitle,
       category: userCat,
-      description: userDesc
+      description: userDesc,
+      published: $('#scanPublished').prop('checked'),
     });
 
   }
@@ -172,15 +209,23 @@ function newScanUpload() {
   $("#saveScanInfoBtn").html("New Scan Info");
 
 }
+
 var unsubscribeDocListener;
 function setDocListener() {
   //assumes global id is set
   unsubscribeDocListener = firebase.firestore().collection("NewUploads").doc(curScanID)
     .onSnapshot(function (docRef) {
-      var bacURL = docRef.data().snipURL?docRef.data().snipURL:'img/default.PNG';
       
-      $(".mdl-card__title-text").html(docRef.data().title);
+      
+      //preview card work
+      docRef.data().title ? $(".mdl-card__title-text").html(docRef.data().title): $(".mdl-card__title-text").html("Title");
+      var bacURL = docRef.data().snipURL?docRef.data().snipURL:'img/default.PNG';
       $(".mdl-card__title").css('background','url('+bacURL+') center / cover');
+      docRef.data().description ? $("#cardDescription").html(docRef.data().description):$("#cardDescription").html("Scan Description");
+      docRef.data().category ? $("#cardCategory").html(docRef.data().category):$("#cardCategory").html("Scan Category");
+      docRef.data().objectBytes ? $("#cardObjectSize").html( Math.round(docRef.data().objectBytes / 100000.0)/10 + ' mb'): $("#cardObjectSize").html('Scan Size');
+
+      //Input card wark
       snipFileURL = docRef.data().snipURL;
       $("#detailSnipURL").html(docRef.data().snipURL);
       textureFileURL = docRef.data().textureURL;
@@ -192,9 +237,10 @@ function setDocListener() {
       document.querySelector('.t2').MaterialTextfield.change(docRef.data().category);
       document.querySelector('.t3').MaterialTextfield.change(docRef.data().description);
 
-      $("#cardDescription").html(docRef.data().description);
-      $("#cardCategory").html(docRef.data().category);
-      $("#cardObjectSize").html( docRef.data().objectBytes / 1000000.0 + ' mb')
+      $("#pubCheckBox").html("Publish: " + curScanID);
+      docRef.data().published ? document.querySelector('#scanPublished').parentElement.MaterialCheckbox.check() : document.querySelector('#scanPublished').parentElement.MaterialCheckbox.uncheck();
+
+
 
       $("#scanInfoLoading").hide();
       $("#scanFiles").show();
@@ -203,9 +249,6 @@ function setDocListener() {
       $("#saveScanInfoBtn").show();
     });
 }
-
-
-
 
 
 
