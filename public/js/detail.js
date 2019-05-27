@@ -10,9 +10,7 @@ $(document).ready(function () {
 
   curScanID = getParameterByName('scanId');
 
-  if (!curScanID) {
-    newScanUpload();
-  } else {
+  if (curScanID) {
     $("#scanInfoLoading").show();
     setDocListener();
   }
@@ -71,11 +69,32 @@ $(document).ready(function () {
   });
 
   //buttons
-
   $("#newBtn").on('click',function(){
-    //TODO: make this less blunt
-    //location.reload();
-    window.open("detail.html");
+    unsubscribeDocListener();
+    newScanUpload();
+  })
+  $("#deleteBtn").on('click',function(){
+    unsubscribeDocListener();
+    if(curScanID){
+      //Ask if sure?
+      if(snipFileURL){
+        var tempRef = firebase.storage().refFromURL(snipFileURL);
+        tempRef.delete();
+      }
+      if(textureFileURL){
+        var tempRef = firebase.storage().refFromURL(textureFileURL);
+        tempRef.delete();
+      }
+      if(objectFileURL){
+        var tempRef = firebase.storage().refFromURL(objectFileURL);
+        tempRef.delete();
+      }
+      firebase.firestore().collection("NewUploads").doc(curScanID).delete();
+     
+
+      newScanUpload();
+    }
+    
   })
 
 });
@@ -99,6 +118,7 @@ function saveScanInfo() {
       published: $('#scanPublished').prop('checked'),
     }).then(function (docRef) {
       curScanID = docRef.id;
+      window.location.replace("detail.html?scanId="+curScanID);
       setDocListener();
     });
 
@@ -200,13 +220,28 @@ function newScanUpload() {
   snipFileURL="";
   textureFileURL="";
   objectFileURL="";
-  $("#titleInput").val("");
-  $("#categoryInput").val("");
-  $("#descriptionInput").val("");
+  document.querySelector('.t1').MaterialTextfield.change("");
+  document.querySelector('.t2').MaterialTextfield.change("");
+  document.querySelector('.t3').MaterialTextfield.change("");
+  $("#pubCheckBox").html("Publish? ");
+  document.querySelector('#scanPublished').parentElement.MaterialCheckbox.uncheck();
+  $("#detailSnipURL").html("no URL");
+  $("#detailTextureURL").html("no URL");
+  $("#detailObjectURL").html("no URL");
+
+
+  //card stuff
+  $(".mdl-card__title").css('background','url("img/default.PNG") center / cover');
+  $(".mdl-card__title-text").html("Title");
+  $("#cardDescription").html("Scan Description");
+  $("#cardCategory").html("Scan Category");
+  $("#cardObjectSize").html('Scan Size');
 
   $("#scanInfoLoading").hide();
   $("#scanFiles").hide();
   $("#saveScanInfoBtn").html("New Scan Info");
+
+  window.location.replace("detail.html");
 
 }
 
@@ -215,7 +250,6 @@ function setDocListener() {
   //assumes global id is set
   unsubscribeDocListener = firebase.firestore().collection("NewUploads").doc(curScanID)
     .onSnapshot(function (docRef) {
-      
       
       //preview card work
       docRef.data().title ? $(".mdl-card__title-text").html(docRef.data().title): $(".mdl-card__title-text").html("Title");
