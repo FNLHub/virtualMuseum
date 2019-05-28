@@ -18,6 +18,7 @@
   <script defer src="/__/firebase/init.js"></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js"></script>
 
   <!-- Material Design Lite -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -53,6 +54,11 @@
     }
     .mdl-layout__tab{
       background: maroon;
+      line-height: 30px;
+      height: 30px;
+    }
+    .mdl-layout__tab-bar-container{
+      height: 30px;
     }
 
     .mdl-card {
@@ -202,8 +208,8 @@
             </div>
           </section>
 
-          <section class="mdl-layout__tab-panel" id="fixed-tab-3">
-            <div class="page-content">Viewer Soon!<!-- VIEWER Your content goes here --></div>
+          <section  class="mdl-layout__tab-panel" id="fixed-tab-3">
+            <div id='viewCanvas'></div>
           </section>
 
 
@@ -216,14 +222,17 @@
     </footer>
 
 
-
   </div>
 
 
-
-
   <!-- JS for populating list with objects from database -->
+  
+  <script src="js/libs/OrbitControls.js"></script>
+  <script src="js/libs/OBJLoader.js"></script>
   <script src="js/index.js"></script>
+  <script src="js/core/ThreejsApp.js"></script>
+  <script src="js/modules/Model.js"></script>
+  <script src="js/indexViewer.js"></script>
 
 
 </body>

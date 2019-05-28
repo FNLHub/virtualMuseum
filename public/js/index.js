@@ -16,12 +16,16 @@ $(document).ready(function () {
       //var isAnonymous = user.isAnonymous;
       //var uid = user.uid;
       console.log("user: "+user.isAnonymous);
-      //getCategories();
-      //displayScans();
+      
+      //get the 3d model
+      var objURL = "https://firebasestorage.googleapis.com/v0/b/fnlvirtualmuseum.appspot.com/o/NewUploads%2FURE4AzRxu5MSRzMrLndu%2Flucy.obj?alt=media&token=fd4fa76d-21ad-44f2-9982-af619d5d221f";
+      var texURL = "https://firebasestorage.googleapis.com/v0/b/fnlvirtualmuseum.appspot.com/o/NewUploads%2FURE4AzRxu5MSRzMrLndu%2Flucy.jpg?alt=media&token=542882c2-1cc2-49c3-a9d7-4d407d63ef55";
+      OnAuthentication(objURL, texURL);
 
     } else {
       // User is signed out.
     }
+    
   });
 
 
