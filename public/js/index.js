@@ -25,8 +25,8 @@ $(document).ready(function () {
   });
 
 
-  showAllScansBtn
   $("#showAllScansBtn").on('click',function(){
+    $(".mdl-layout__tab:eq(1) span").click(); //click second tab
     $("#mainLoadingBar").show();
     displayScans();
   })
@@ -56,27 +56,6 @@ function displayScans(argCategory) {
     $("#scanCards").empty(); //clear out div in index.html
 
     collection.forEach(function (doc) {
-
-      var scanCard =
-        '<div id="card-' + doc.id + '"  class="scan-card mdl-card mdl-shadow--2dp">' +
-          '<div class="mdl-card__title"><h2 class="mdl-card__title-text">' + doc.data().title + '</h2></div>' +
-          '<div class="mdl-card__supporting-text">' +
-            '<div>Category:' + doc.data().category + '</div>' +
-            '<div>Description: ' + doc.data().description + '</div>' +
-            '<div><a href="' + doc.data().objectURL + '" target="_blank">Download Object</a></div>' +
-            '<div><a href="' + doc.data().textureURL + '" target="_blank">Download Texture</a></div>' +
-          '</div>' +
-          '<div class="mdl-card__actions mdl-card--border">' +
-            '<button id="go-' + doc.id + '" class="floatRight mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent">' +
-            'View 3d Scan <i class="material-icons">remove_red_eye</i>' +
-            '</button>' +
-          '</div>' +
-          '<div class="mdl-card__menu">'+
-            '<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">'+
-              '<i class="material-icons">share</i>'+
-            '</button>'+
-          '</div>'+
-        '</div>';
 
       var newScanCard =
       '<div id="card-' + doc.id + '"  class="detail-card mdl-card mdl-shadow--2dp mdl-card--border">'+
@@ -138,7 +117,6 @@ function displayScans(argCategory) {
     });
 
     $("#scanCards").append("<div>Thank you for your support!</div>");
-    $("#frontPage").hide();
     $("#mainLoadingBar").hide();
     $("#scanCards").show();
     

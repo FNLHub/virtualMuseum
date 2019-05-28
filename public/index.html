@@ -28,6 +28,10 @@
     main {
       background: oldlace;
     }
+    .mdl-mini-footer{
+      background: url('img/background.png') center/cover;
+      padding: 10px;
+    }
 
     .mdl-layout__header-row {
       background: url('img/background.png') center/cover;
@@ -40,13 +44,16 @@
     .mdl-layout__drawer {
       color: oldlace;
       background: url('img/backgroundVert.png') center/cover;
- 
-    }
-    .mdl-layout__drawer .mdl-navigation .mdl-navigation__link{
-      color: oldlace;
-      
+
     }
 
+    .mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
+      color: oldlace;
+
+    }
+    .mdl-layout__tab{
+      background: maroon;
+    }
 
     .mdl-card {
       width: 375px;
@@ -54,28 +61,35 @@
       margin-bottom: 1em;
       border: 2px solid maroon;
     }
+
     .mdl-card>.mdl-card__title {
       color: #fff;
       height: 176px;
       background: url('img/default.PNG') center / cover;
     }
+
     .mdl-card>.mdl-card__supporting-text {
       background-image: url('img/dot.png');
     }
+
     .mdl-card>.mdl-card__menu {
       color: #fff;
     }
+
     .mdl-card .mdl-card__actions {
       background: URL('img/background.png') center / cover;
       color: white;
     }
+
     .mdl-card .mdl-card__actions button {
       color: white;
     }
+
     .mdl-card .mdl-card__actions {
       text-align: center;
     }
-    #cardDescription{
+
+    #cardDescription {
       margin-bottom: 1em;
     }
 
@@ -92,16 +106,7 @@
       margin-bottom: 20px;
     }
 
-    .footer {
-      position: fixed;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      background: URL('img/background.png') center / cover;
-      color: white;;
-      text-align: center;
-      z-index: 2;
-    }
+ 
 
     .hide {
       display: none;
@@ -113,7 +118,7 @@
 
   <!-- The drawer is always open in large screens. The header is always shown,
   even in small screens. -->
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header mdl-layout--fixed-tabs">
 
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
@@ -130,6 +135,12 @@
           </div>
         </div>
       </div>
+      <!-- Tabs -->
+      <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+        <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Home</a>
+        <a id="detailTab" href="#fixed-tab-2" class="mdl-layout__tab">Detail</a>
+        <a href="#fixed-tab-3" class="mdl-layout__tab">Viewer</a>
+      </div>
     </header>
 
     <div class="mdl-layout__drawer">
@@ -143,55 +154,66 @@
     </div>
 
     <main class="mdl-layout__content">
-      <div class="page-content">
-        <!-- Your content goes here -->
 
-          <div id="mainLoadingBar" class="hide">
-            <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-          </div>
+        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+            <div class="page-content"><!-- HOME Your content goes here -->
+              <div id="frontPage" class="">
 
-          <div id="frontPage" class="">
-
-            <div class="main-card mdl-card mdl-shadow--2dp mdl-card--border">
-
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Friday Night Lab</h2>
-              </div>
-
-              <div class="mdl-card__supporting-text">
-                <p>This is a repository of 3d scans produced in the COS Friday Night Lab Program.</p>
-                <button id="showAllScansBtn" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                  <i class="material-icons">list</i> Show All Scans
-                </button>
-                <br><br>
-                <div>Category List Soon!</div>
-              </div>
-
-              <div class="mdl-card__actions mdl-card--border">
-                <p>Awesomesauce!</p>
-
-              </div>
-              <div class="mdl-card__menu">
-                <button id="shareBtn" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                  <i class="material-icons">share</i>
-                </button>
-                <button id="previewBtn" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                  <i class="material-icons">remove_red_eye</i>
-                </button>
-              </div>
-
+                  <div class="main-card mdl-card mdl-shadow--2dp mdl-card--border">
+        
+                    <div class="mdl-card__title">
+                      <h2 class="mdl-card__title-text">Friday Night Lab</h2>
+                    </div>
+        
+                    <div class="mdl-card__supporting-text">
+                      <p>This is a repository of 3d scans produced in the COS Friday Night Lab Program.</p>
+                      <button id="showAllScansBtn" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                        <i class="material-icons">list</i> Show All Scans
+                      </button>
+                      <br><br>
+                      <div>Category List Soon!</div>
+                    </div>
+        
+                    <div class="mdl-card__actions mdl-card--border">
+                      <p>Awesomesauce!</p>
+        
+                    </div>
+                    <div class="mdl-card__menu">
+                      <button id="shareBtn" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                        <i class="material-icons">share</i>
+                      </button>
+                      <button id="previewBtn" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                        <i class="material-icons">remove_red_eye</i>
+                      </button>
+                    </div>
+        
+                  </div>
+        
+                </div>
             </div>
+          </section>
+
+          <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+            <div class="page-content"><!-- DETAIL Your content goes here -->
+              <div id="mainLoadingBar" class="hide">
+                  <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                </div>
+              <div id="scanCards" class="hide"></div>
+            </div>
+          </section>
+
+          <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+            <div class="page-content">Viewer Soon!<!-- VIEWER Your content goes here --></div>
+          </section>
 
 
-          </div>
-
-          <div id="scanCards" class="hide"></div>
-
-      </div>
-      <footer class="footer">
-          <p>2019-2020 COS Friday Night Lab</p>
-        </footer>
     </main>
+
+    <footer class="mdl-mini-footer">
+      <div class="mdl-mini-footer__right-section">
+        CC COS Friday Night Lab
+      </div>
+    </footer>
 
 
 
