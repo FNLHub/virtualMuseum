@@ -45,6 +45,8 @@ class ThreejsApp {
         this.controls.dampingFactor = 0.25;
         this.controls.enableZoom = true;
         this.controls.enablePan = false;
+        this.controls.autoRotate = true;
+        this.controls.autoRotateSpeed = 0.50;
     }
 
     add(element) {
