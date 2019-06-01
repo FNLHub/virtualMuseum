@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Splash</title>
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/5.9.1/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/5.9.1/firebase-auth.js"></script>
+  <script defer src="/__/firebase/5.9.1/firebase-database.js"></script>
+  <script defer src="/__/firebase/5.9.1/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/5.9.1/firebase-storage.js"></script>
+  <script defer src="/__/firebase/5.9.1/firebase-firestore.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  
+  <!-- Material Design Lite -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+  <style>
+
+    .hide {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="appSplash">
+    <h1>Hello Splash</h1>
+    <div>User: <span id="appAuth">No</span></div>
+
+  </div>
+
+  <div id="webApp" class="hide">
+    Very simple;
+  </div>
+
+  <script src="js/splashTest.js"></script>
+
+</body>
+
+
+
+</html>
