@@ -29,7 +29,8 @@
     main {
       background: oldlace;
     }
-    .mdl-mini-footer{
+
+    .mdl-mini-footer {
       background: url('img/background.png') center/cover;
       padding: 10px;
     }
@@ -52,14 +53,18 @@
       color: oldlace;
 
     }
-    .mdl-layout__tab{
+
+    .mdl-layout__tab {
       background: maroon;
       line-height: 30px;
       height: 30px;
     }
-    .mdl-layout__tab-bar-container{
+
+    .mdl-layout__tab-bar-container {
       height: 30px;
     }
+
+
 
     .mdl-card {
       width: 375px;
@@ -95,20 +100,25 @@
       text-align: center;
     }
 
+
+
+
+    #scanCards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+
+    .detail-card {
+      display: flex;
+      flex-direction: column;
+    }
+    .detail-card .mdl-card__supporting-text {
+      flex: 1;
+    }
     #cardDescription {
       margin-bottom: 1em;
-    }
-
-
-    .scan-card {
-      margin: 0 auto;
-      width: 90%;
-      margin-bottom: 5px;
-    }
-    #scanCards{
-      display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
     }
 
 
@@ -116,8 +126,6 @@
       margin-top: 1em;
       margin-bottom: 20px;
     }
-
- 
 
     .hide {
       display: none;
@@ -166,56 +174,58 @@
 
     <main class="mdl-layout__content">
 
-        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
-            <div class="page-content"><!-- HOME Your content goes here -->
-              <div id="frontPage" class="">
+      <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+        <div class="page-content">
+          <!-- HOME Your content goes here -->
+          <div id="frontPage" class="">
 
-                  <div class="main-card mdl-card mdl-shadow--2dp mdl-card--border">
-        
-                    <div class="mdl-card__title">
-                      <h2 class="mdl-card__title-text">Friday Night Lab</h2>
-                    </div>
-        
-                    <div class="mdl-card__supporting-text">
-                      <p>This is a repository of 3d scans produced in the COS Friday Night Lab Program.</p>
-                      <button id="showAllScansBtn" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                        <i class="material-icons">list</i> Show All Scans
-                      </button>
-                      <br><br>
-                      <div>Category List Soon!</div>
-                    </div>
-        
-                    <div class="mdl-card__actions mdl-card--border">
-                      <p>Awesomesauce!</p>
-        
-                    </div>
-                    <div class="mdl-card__menu">
-                      <button id="shareBtn" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                        <i class="material-icons">share</i>
-                      </button>
-                      <button id="previewBtn" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                        <i class="material-icons">remove_red_eye</i>
-                      </button>
-                    </div>
-        
-                  </div>
-        
-                </div>
+            <div class="main-card mdl-card mdl-shadow--2dp mdl-card--border">
+
+              <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Friday Night Lab</h2>
+              </div>
+
+              <div class="mdl-card__supporting-text">
+                <p>This is a repository of 3d scans produced in the COS Friday Night Lab Program.</p>
+                <button id="showAllScansBtn" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                  <i class="material-icons">list</i> Show All Scans
+                </button>
+                <br><br>
+                <div>Category List Soon!</div>
+              </div>
+
+              <div class="mdl-card__actions mdl-card--border">
+                <p>Awesomesauce!</p>
+
+              </div>
+              <div class="mdl-card__menu">
+                <button id="shareBtn" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                  <i class="material-icons">share</i>
+                </button>
+                <button id="previewBtn" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                  <i class="material-icons">remove_red_eye</i>
+                </button>
+              </div>
+
             </div>
-          </section>
 
-          <section class="mdl-layout__tab-panel" id="fixed-tab-2">
-            <div class="page-content"><!-- DETAIL Your content goes here -->
-              <div id="mainLoadingBar" class="hide">
-                  <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
-                </div>
-              <div id="scanCards" class="hide"></div>
-            </div>
-          </section>
+          </div>
+        </div>
+      </section>
 
-          <section  class="mdl-layout__tab-panel" id="fixed-tab-3">
-            <div id='viewCanvas'></div>
-          </section>
+      <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+        <div class="page-content">
+          <!-- DETAIL Your content goes here -->
+          <div id="mainLoadingBar" class="hide">
+            <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+          </div>
+          <div id="scanCards" class="hide"></div>
+        </div>
+      </section>
+
+      <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+        <div id='viewCanvas'></div>
+      </section>
 
 
     </main>
@@ -231,7 +241,7 @@
 
 
   <!-- JS for populating list with objects from database -->
-  
+
   <script src="js/libs/OrbitControls.js"></script>
   <script src="js/libs/OBJLoader.js"></script>
   <script src="js/index.js"></script>
