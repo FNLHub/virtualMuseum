@@ -1,5 +1,7 @@
 
 //Globals here
+var curScanID;
+var curCategory;
 
 $(document).ready(function () {
 
@@ -21,6 +23,7 @@ $(document).ready(function () {
       var objURL = "https://firebasestorage.googleapis.com/v0/b/fnlvirtualmuseum.appspot.com/o/NewUploads%2FURE4AzRxu5MSRzMrLndu%2Flucy.obj?alt=media&token=fd4fa76d-21ad-44f2-9982-af619d5d221f";
       var texURL = "https://firebasestorage.googleapis.com/v0/b/fnlvirtualmuseum.appspot.com/o/NewUploads%2FURE4AzRxu5MSRzMrLndu%2Flucy.jpg?alt=media&token=542882c2-1cc2-49c3-a9d7-4d407d63ef55";
       OnAuthentication(objURL, texURL);
+      getCategories();
 
     } else {
       // User is signed out.
@@ -37,13 +40,21 @@ $(document).ready(function () {
 
 });
 
+var cats = {};
 function getCategories(){
   let query = firebase.firestore().collection('NewUploads').where("published", "==", true).orderBy('category', 'asc');
   query.get().then(function(collection){
 
     collection.forEach(function(doc){
-      console.log(doc.data().category);
+      //Make a list of categories and the number of scans for each
+      cats[doc.data().category] ? cats[doc.data().category]++ : cats[doc.data().category]=1;
+   
     });
+
+    for([key,value] of Object.entries(cats) ){
+      //TODO: append buttons to app
+      $("#catsUI").append("<div>"+key+" scans: "+value+"</div>");
+    }
 
   });
 
