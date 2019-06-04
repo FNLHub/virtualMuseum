@@ -131,6 +131,7 @@
     .hide {
       display: none;
     }
+
   </style>
 </head>
 
@@ -228,6 +229,7 @@
       </section>
 
       <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+        <div id="scanLoadingBar" class="hide">Loading...</div>
         <div id='viewCanvas'></div>
       </section>
 
@@ -244,14 +246,15 @@
   </div>
 
 
-  <!-- JS for populating list with objects from database -->
+  <!-- JS for this app -->
 
   <script src="js/libs/OrbitControls.js"></script>
   <script src="js/libs/OBJLoader.js"></script>
-  <script src="js/index.js"></script>
+
   <script src="js/core/ThreejsApp.js"></script>
   <script src="js/modules/Model.js"></script>
-  <script src="js/indexViewer.js"></script>
+
+  <script src="js/index.js"></script>
 
 
 </body>

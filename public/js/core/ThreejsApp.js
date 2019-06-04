@@ -32,7 +32,8 @@ class ThreejsApp {
 
         if (renderer == null) {
             this.renderer = new THREE.WebGLRenderer();
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
+            //NOTE: Eric Seems like we could get the size of embedElement instead of window here?
+            this.renderer.setSize(window.innerWidth ,  window.innerHeight-100);
 
             if (embedElement != null)
                 document.querySelector(embedElement).appendChild(this.renderer.domElement);

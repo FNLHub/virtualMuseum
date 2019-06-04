@@ -1,9 +1,12 @@
 
 //Globals here
+var app;
 var curScanID;
 var curCategory;
 
 $(document).ready(function () {
+
+  initViewerCanvas();
 
   //first step to sign in for database security.
   firebase.auth().signInAnonymously().catch(function(error) {
@@ -20,9 +23,6 @@ $(document).ready(function () {
       console.log("user: "+user.isAnonymous);
       
       //get the 3d model
-      var objURL = "https://firebasestorage.googleapis.com/v0/b/fnlvirtualmuseum.appspot.com/o/NewUploads%2FURE4AzRxu5MSRzMrLndu%2Flucy.obj?alt=media&token=fd4fa76d-21ad-44f2-9982-af619d5d221f";
-      var texURL = "https://firebasestorage.googleapis.com/v0/b/fnlvirtualmuseum.appspot.com/o/NewUploads%2FURE4AzRxu5MSRzMrLndu%2Flucy.jpg?alt=media&token=542882c2-1cc2-49c3-a9d7-4d407d63ef55";
-      OnAuthentication(objURL, texURL);
       getCategories();
 
     } else {
@@ -40,6 +40,8 @@ $(document).ready(function () {
 
 });
 
+
+//Scan page stuff here *****************
 var cats = {};
 function getCategories(){
   let query = firebase.firestore().collection('NewUploads').where("published", "==", true).orderBy('category', 'asc');
@@ -116,7 +118,11 @@ function displayScans(argCategory) {
 
       //Set button listeners here
       $("#go-" + doc.id).on('click', function () {
-        window.open("viewer.html?scanId=" + doc.id);
+        //window.open("viewer.html?scanId=" + doc.id);
+        //Eric need to clear old model?? Hacky!!!
+        $("#scanLoadingBar").show();
+        viewNewModel(doc.data().objectURL, doc.data().textureURL);
+        $(".mdl-layout__tab:eq(2) span").click(); //click third tab
       });
       $("#share-" + doc.id).on('click', function () {
         if (navigator.share) {
@@ -149,4 +155,60 @@ function displayScans(argCategory) {
   });
 };
 
+
+
+//Viewer Stuff here ******************
+function initViewerCanvas(){
+  app = new ThreejsApp('#viewCanvas');
+
+  var keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), 0.75);
+  keyLight.position.set(-100, 0, 100);
+
+  var fillLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 100%, 75%)'), 0.1);
+  fillLight.position.set(100, 0, 100);
+
+  var backLight = new THREE.DirectionalLight(0xffffff, 0.5);
+  backLight.position.set(100, 0, -100).normalize();
+
+  var light = new THREE.AmbientLight(0xffffff, 1.0);
+  light.position.set(30, 30, 30);
+
+  app.add(keyLight);
+  app.add(fillLight);
+  app.add(backLight);
+  app.add(light);
+
+  var animate = function () {
+      requestAnimationFrame(animate);
+      app.update();
+  };
+
+  animate();
+}
+
+function viewNewModel(modelURL, textureURL) {
+  model = new Model({
+      modelURL: modelURL,
+      textureURL: textureURL,
+      callback: OnModelLoaded,
+  });
+  //NOTE: Eric should we delete the old model?  Or is it overwritten??
+  app.add(model);
+}
+function OnModelLoaded(center) {
+  app.setFocus(center);
+  $("#scanLoadingBar").hide();
+}
+
+
+//Utility Function for URL parameters---------------------------------------------------------------
+function getParameterByName(name, url) {
+  if (!url) url = window.location.href;
+  name = name.replace(/[\[\]]/g, '\\$&');
+  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
 
