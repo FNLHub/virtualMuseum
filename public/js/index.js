@@ -35,7 +35,7 @@ $(document).ready(function () {
   $("#showAllScansBtn").on('click',function(){
     $(".mdl-layout__tab:eq(1) span").click(); //click second tab
     $("#mainLoadingBar").show();
-    displayScans();
+    displayScans("all");
   })
 
 });
@@ -51,9 +51,16 @@ function getCategories(){
    
     });
 
+    $("#catsUI").html("<em>Scan Categories</em><br>");
+
     for([key,value] of Object.entries(cats) ){
       //TODO: append buttons to app
-      $("#catsUI").append("<div>"+key+" scans: "+value+"</div>");
+      var catBtnHtml =
+      '<button class="mdl-button mdl-js-button mdl-js-ripple-effect" onclick="displayScans(\''+key+'\')">'+
+        '<i class="material-icons">forward</i> '+ key + ' scans: '+value+
+      '</button><br>';
+
+      $("#catsUI").append(catBtnHtml);
     }
 
   });
@@ -61,9 +68,12 @@ function getCategories(){
 }
 
 function displayScans(argCategory) {
-  //Todo: filter for chosen category
 
-  var query = firebase.firestore().collection('NewUploads').where("published", "==", true).orderBy('title', 'asc');
+  var query;
+  if(argCategory=="all")
+    query = firebase.firestore().collection('NewUploads').where("published", "==", true).orderBy('title', 'asc');
+  else
+    query = firebase.firestore().collection('NewUploads').where("category", "==", argCategory).where("published", "==", true).orderBy('title', 'asc');
   //Real time listener set here
   query.onSnapshot(function (collection) {
 
@@ -131,9 +141,10 @@ function displayScans(argCategory) {
 
     });
 
-    $("#scanCards").append("<div>Thank you for your support!</div>");
+    $("#scanCards").append("<br><div>Thank you for your support!</div>");
     $("#mainLoadingBar").hide();
     $("#scanCards").show();
+    $(".mdl-layout__tab:eq(1) span").click(); //click second tab
     
   });
 };
