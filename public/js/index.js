@@ -36,7 +36,14 @@ $(document).ready(function () {
     $(".mdl-layout__tab:eq(1) span").click(); //click second tab
     $("#mainLoadingBar").show();
     displayScans("all");
-  })
+  });
+
+  //Nav Buttons
+  $("#homeNav").on('click',function(e){
+    e.preventDefault();
+    $(".mdl-layout__tab:eq(0) span").click(); //click tab 1
+    document.querySelector('.mdl-layout').MaterialLayout.toggleDrawer();
+  });
 
 });
 
@@ -147,7 +154,7 @@ function displayScans(argCategory) {
 
     });
 
-    $("#scanCards").append("<br><div>Thank you for your support!</div>");
+    //$("#scanCards").append("<br><div>Thank you for your support!</div>");
     $("#mainLoadingBar").hide();
     $("#scanCards").show();
     $(".mdl-layout__tab:eq(1) span").click(); //click second tab
