@@ -1,4 +1,3 @@
-
 //Globals here
 var app;
 var curScanID;
@@ -165,6 +164,8 @@ function displayScans(argCategory) {
 
 
 //Viewer Stuff here ******************
+window.addEventListener( 'resize', onWindowResize, false );
+
 function initViewerCanvas(){
   app = new ThreejsApp('#viewCanvas');
 
@@ -180,10 +181,18 @@ function initViewerCanvas(){
   var light = new THREE.AmbientLight(0xffffff, 1.0);
   light.position.set(30, 30, 30);
 
+  // This loads a default cube
+  var model = new Model({
+    modelURL: 'https://firebasestorage.googleapis.com/v0/b/fnlvirtualmuseum.appspot.com/o/Uploads%2F3dObjects%2F5ad8KrKG0GlRpdtaJQI4%2FCookie.obj?alt=media&token=9c894765-e49e-401b-bae7-575cde91a368',
+    textureURL: 'https://firebasestorage.googleapis.com/v0/b/fnlvirtualmuseum.appspot.com/o/Uploads%2F3dTextures%2F5ad8KrKG0GlRpdtaJQI4%2FCookie.jpg?alt=media&token=689c8ccf-c85a-4cea-815d-dfef095ab060',
+    callback: OnModelLoaded
+  })
+
   app.add(keyLight);
   app.add(fillLight);
   app.add(backLight);
   app.add(light);
+  app.add(model);
 
   var animate = function () {
       requestAnimationFrame(animate);
@@ -193,29 +202,25 @@ function initViewerCanvas(){
   animate();
 }
 
-var model;
+// Loads a new model to the viewer, keeping it's previous lighing settings
 function viewNewModel(modelURL, textureURL) {
-  //app.removeAll('Mesh');
 
-  app.removeAll();
-
-
-  model = new Model({
-      modelURL: modelURL,
-      textureURL: textureURL,
-      callback: OnModelLoaded,
-  });
-  
-  //NOTE: Eric should we delete the old model?  Or is it overwritten??
-  
-  let a = app.add(model);
-
+  // returns true if the urls were valid
+  if(model.loadNewModel(modelURL, textureURL, OnModelLoaded))
+  {
+    // Do something here
+  }
 }
+
 function OnModelLoaded(center) {
+  console.log('hello');
   app.setFocus(center);
   $("#scanLoadingBar").hide();
 }
 
+function onWindowResize() {
+  app.onWindowResize();
+}
 
 //Utility Function for URL parameters---------------------------------------------------------------
 function getParameterByName(name, url) {

@@ -1,70 +1,40 @@
 // Author: Eric Marquez
 // Description: Model class that can be easily used to lood an OBJ(wavefront)
-// as well as its texture image from web URLs. This implements WHS (Whitestorm JS)
-var oldMesh;
-// Sphere was the only thing I could inherit to stop WHS from crashing :/ It works so dont question it.
+// as well as its texture image from web URLs.
+
+// This class MUST be used with a ThreejsApp wrapper class
+
 class Model extends Module {
 
-    // Constructor required by WHS
     constructor(params = {}) {
         super(params);
         this.bshowingMaterial = true;
     }
 
-    // Build required by WHS. Since Js uses garbage collection, it's variables are all refrences.
-    // This allows callback functions to modify old variables and still have the changes take place
+    // Starts the build process given the required params, called automatically by the Module base class
     build(params) {
-        var meshLoader = new THREE.OBJLoader();
         this.mesh = new THREE.Mesh();
+
+        // Creates a diffuse based texture
         this.material = new THREE.MeshPhysicalMaterial({
             color: (params.color) ? params.color : 0xFFFFFF,
             roughness: (params.roughness) ? params.roughness : 0.8,
         });
 
+        // Creates a white material
         this.clearMaterial = new THREE.MeshPhysicalMaterial({
             color: (params.color) ? params.color : 0xFFFFFF,
             roughness: (params.roughness) ? params.roughness : 0.8,
         });
 
-        // Load basic cube if no model url is given
-        if (params.modelURL == '') {
-            return new THREE.Mesh(
+        // Load basic cube if any the urls were invalid
+        if(!this.loadNewModel(params.modelURL, params.textureURL, params.callback))
+        {
+            this.mesh = new THREE.Mesh(
                 new THREE.BoxGeometry(10, 10, 10),
                 this.material
             );
         }
-
-        // Load the image if it exists
-        if (params.textureURL != '') {
-            LoadImagesFromLink(params.textureURL, textures => {
-                this.material.map = textures.diffuse;
-                this.material.needsUpdate = true;
-            });
-        }
-
-        // Load the mesh from the URL
-        meshLoader.load(params.modelURL, model => {
-            this.world.remove(oldMesh);
-            // If this model has already been added to a world,
-            // remove it, modify it, and add it back.
-            if(this.world) {
-                this.world.remove(this.mesh);
-                this.mesh = model;
-                this.world.add(this.mesh);
-            } else {
-                this.mesh = model;
-            }
-
-            if (!this.bshowingMaterial) {
-                this.setMaterial(this.clearMaterial);
-            } else {
-                this.setMaterial(this.material);
-            }
-
-            if (this.isFunction(params.callback))
-                params.callback(this.getCenter());
-
-        });
 
         return this.mesh;
     }
@@ -88,7 +58,7 @@ class Model extends Module {
 
     toggleWireframe() {
         this.material.wireframe = !this.material.wireframe;
-        this.clearMaterial.wireframe =  !this.clearMaterial.wireframe;
+        this.clearMaterial.wireframe = !this.clearMaterial.wireframe;
     }
 
     setMaterial(material) {
@@ -100,10 +70,46 @@ class Model extends Module {
             }
         });
     }
+
+    loadNewModel(modelURL, textureURL, callback) {
+
+        if(modelURL == '' || textureURL == '')
+            return false;
+
+        // Load the image if it exists
+        LoadImagesFromLink(textureURL, textures => {
+            this.material.map = textures.diffuse;
+            this.material.needsUpdate = true;
+        });
+
+        // Load the mesh from the URL
+        var meshLoader = new THREE.OBJLoader();
+        meshLoader.load(modelURL, model => {
+            // If this model has already been added to a world,
+            // remove it, modify it, and add it back.
+            if (this.world) {
+                this.world.remove(this.mesh);
+                this.mesh = model;
+                this.world.add(this.mesh);
+            } else {
+                this.mesh = model;
+            }
+
+            if (!this.bshowingMaterial) {
+                this.setMaterial(this.clearMaterial);
+            } else {
+                this.setMaterial(this.material);
+            }
+
+            if (this.isFunction(callback))
+                callback(this.getCenter());
+        });
+
+        return true;
+    }
 }
 
-// Regardless of using WHS.js, this is how I got the material to load correctly from the URL
-// Basically, the process was to re-create the image locally after downloading the image "Blob" from the URL
+//loads textures using an image URL
 function LoadImagesFromLink(imageURL, callback) {
     fetch(imageURL).then(res => res.blob()).then(imageBlob => {
         var texture = new THREE.Texture();
