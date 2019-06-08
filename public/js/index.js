@@ -193,14 +193,23 @@ function initViewerCanvas(){
   animate();
 }
 
+var model;
 function viewNewModel(modelURL, textureURL) {
+  //app.removeAll('Mesh');
+
+  app.removeAll();
+
+
   model = new Model({
       modelURL: modelURL,
       textureURL: textureURL,
       callback: OnModelLoaded,
   });
+  
   //NOTE: Eric should we delete the old model?  Or is it overwritten??
-  app.add(model);
+  
+  let a = app.add(model);
+
 }
 function OnModelLoaded(center) {
   app.setFocus(center);

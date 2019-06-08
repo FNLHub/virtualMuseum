@@ -54,13 +54,34 @@ class ThreejsApp {
         if (this.scene == null) {
             return;
         }
-
+        console.log(this.scene.children);
         if (element instanceof Module && element.content != null) {
             element.setWorld(this);
             this.scene.add(element.content);
 
         } else {
             this.scene.add(element);
+        }
+        console.log(this.scene.children);
+        
+    }
+
+    // removeOldModel(theModel){
+    //     if(theModel===undefined) return;
+    //     console.log(theModel);
+    //     console.log(this.scene.children);
+    //     this.scene.remove(theModel.content);
+    // }
+
+    removeAll(){
+        // delete the 4th child until no 4th child!  ugh
+        while(true){
+            let found = this.scene.children
+            .find((_obj,index)=>index>3)
+            
+            if(!found){break;}
+            this.scene.remove(found);
+            
         }
     }
 

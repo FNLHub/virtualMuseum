@@ -1,7 +1,7 @@
 // Author: Eric Marquez
 // Description: Model class that can be easily used to lood an OBJ(wavefront)
 // as well as its texture image from web URLs. This implements WHS (Whitestorm JS)
-
+var oldMesh;
 // Sphere was the only thing I could inherit to stop WHS from crashing :/ It works so dont question it.
 class Model extends Module {
 
@@ -44,7 +44,7 @@ class Model extends Module {
 
         // Load the mesh from the URL
         meshLoader.load(params.modelURL, model => {
-
+            this.world.remove(oldMesh);
             // If this model has already been added to a world,
             // remove it, modify it, and add it back.
             if(this.world) {
