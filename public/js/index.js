@@ -166,6 +166,7 @@ function displayScans(argCategory) {
 //Viewer Stuff here ******************
 window.addEventListener( 'resize', onWindowResize, false );
 
+var model;
 function initViewerCanvas(){
   app = new ThreejsApp('#viewCanvas');
 
@@ -178,11 +179,11 @@ function initViewerCanvas(){
   var backLight = new THREE.DirectionalLight(0xffffff, 0.5);
   backLight.position.set(100, 0, -100).normalize();
 
-  var light = new THREE.AmbientLight(0xffffff, 1.0);
+  var light = new THREE.AmbientLight(0xffffff, 1.5);
   light.position.set(30, 30, 30);
 
   // This loads a default cube
-  var model = new Model({
+  model = new Model({
     modelURL: 'https://firebasestorage.googleapis.com/v0/b/fnlvirtualmuseum.appspot.com/o/Uploads%2F3dObjects%2F5ad8KrKG0GlRpdtaJQI4%2FCookie.obj?alt=media&token=9c894765-e49e-401b-bae7-575cde91a368',
     textureURL: 'https://firebasestorage.googleapis.com/v0/b/fnlvirtualmuseum.appspot.com/o/Uploads%2F3dTextures%2F5ad8KrKG0GlRpdtaJQI4%2FCookie.jpg?alt=media&token=689c8ccf-c85a-4cea-815d-dfef095ab060',
     callback: OnModelLoaded
@@ -205,6 +206,8 @@ function initViewerCanvas(){
 // Loads a new model to the viewer, keeping it's previous lighing settings
 function viewNewModel(modelURL, textureURL) {
 
+  app.removeAll();
+
   // returns true if the urls were valid
   if(model.loadNewModel(modelURL, textureURL, OnModelLoaded))
   {
@@ -213,7 +216,7 @@ function viewNewModel(modelURL, textureURL) {
 }
 
 function OnModelLoaded(center) {
-  console.log('hello');
+  console.log('model loaded?');
   app.setFocus(center);
   $("#scanLoadingBar").hide();
 }

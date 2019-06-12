@@ -75,6 +75,7 @@ class ThreejsApp {
 
     removeAll(){
         // delete the 4th child until no 4th child!  ugh
+        this.controls.reset();
         while(true){
             let found = this.scene.children
             .find((_obj,index)=>index>3)
