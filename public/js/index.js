@@ -124,13 +124,13 @@ function displayScans(argCategory) {
 
       //Set button listeners here
       $("#go-" + doc.id).on('click', function () {
-        //window.open("viewer.html?scanId=" + doc.id);
-        //Eric need to clear old model?? Hacky!!!
+        $("#scanTitle").html(doc.data().title);
         $("#scanLoadingBar").show();
         viewNewModel(doc.data().objectURL, doc.data().textureURL);
         $(".mdl-layout__tab:eq(2) span").click(); //click third tab
       });
       $("#share-" + doc.id).on('click', function () {
+        
         if (navigator.share) {
           navigator.share({
               title: 'FNL 3d Scan',

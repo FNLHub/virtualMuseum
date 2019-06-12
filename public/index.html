@@ -122,6 +122,14 @@
       margin-bottom: 1em;
     }
 
+    #scanTitleContainer{
+      position:fixed;
+      color:white;
+      z-index: 10;
+      font: larger;
+      
+    }
+
 
     .page-content {
       margin-top: 1em;
@@ -220,7 +228,7 @@
 
       <section class="mdl-layout__tab-panel" id="fixed-tab-2">
         <div class="page-content">
-          <!-- DETAIL Your content goes here -->
+          <!-- Scan Cards -->
           <div id="mainLoadingBar" class="hide">
             <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
           </div>
@@ -230,7 +238,12 @@
       </section>
 
       <section class="mdl-layout__tab-panel" id="fixed-tab-3">
-        <div id="scanLoadingBar" class="hide">Loading...</div>
+        <!-- Scan Viewer -->
+
+        <div id="scanTitleContainer">
+            <div id="scanTitle">Cookie!</div>            
+            <div id="scanLoadingBar" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+        </div>
         <div id='viewCanvas'></div>
       </section>
 
