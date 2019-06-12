@@ -115,18 +115,31 @@
       display: flex;
       flex-direction: column;
     }
+
     .detail-card .mdl-card__supporting-text {
       flex: 1;
     }
+
     #cardDescription {
       margin-bottom: 1em;
     }
 
-    #scanTitleContainer{
-      position:fixed;
-      color:white;
+    #scanTitleContainer {
+      position: fixed;
+      display: flex;
+      color: white;
       z-index: 10;
-      font: larger;
+      width: 90%;
+      padding: 0.5em;
+
+    }
+    #scanTitleContainer>button i{
+      color:antiquewhite;
+    }
+    #scanTitle{
+      font-size: 18px;
+    }
+    #scanTitleSpacer{
       
     }
 
@@ -139,7 +152,6 @@
     .hide {
       display: none;
     }
-
   </style>
 </head>
 
@@ -154,8 +166,7 @@
         <span class="mdl-layout-title">Virtual Museum</span>
         <div class="mdl-layout-spacer"></div>
 
-        <div
-          class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
           <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
             <i class="material-icons">search</i>
           </label>
@@ -200,11 +211,12 @@
                 <div id="catsUI">
                   <div class="mdl-spinner mdl-js-spinner is-active"></div>
                 </div>
-                <br><br>
+                <br>
+                <br>
                 <button id="showAllScansBtn" class="mdl-button mdl-js-button mdl-js-ripple-effect">
                   <i class="material-icons">list</i> Show All Scans
                 </button>
-                
+
               </div>
 
               <div class="mdl-card__actions mdl-card--border">
@@ -241,9 +253,13 @@
         <!-- Scan Viewer -->
 
         <div id="scanTitleContainer">
-            <div id="scanTitle">Cookie!</div>            
-            <div id="scanLoadingBar" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+          <div id="scanTitle">Cookie!</div>
+          <div id="scanTitleSpacer"></div>
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab ">
+              <i class="material-icons">settings</i>
+          </button>
         </div>
+        <div id="scanLoadingBar" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
         <div id='viewCanvas'></div>
       </section>
 
