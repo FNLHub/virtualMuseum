@@ -20,9 +20,17 @@ class Module {
 class ThreejsApp {
     constructor(embedElement = null, renderer = null, camera = null) {
         this.scene = new THREE.Scene();
-
+        let relavantDiv = document.querySelector(embedElement).parentElement;
+        let x = relavantDiv.offsetWidth;
+        let y = relavantDiv.offsetHeight + 70;
+       
+        console.log(x);
+        console.log(y);
+        console.log("constructor: " + window.innerWidth);
+        console.log("constructor: " + window.innerHeight);
+    
         if (camera == null) {
-            this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+            this.camera = new THREE.PerspectiveCamera(45, x/y, 1, 1000);
             this.camera.position.z = 30;
             this.camera.position.x = 30;
             this.camera.position.y = 30;
@@ -33,7 +41,7 @@ class ThreejsApp {
         if (renderer == null) {
             this.renderer = new THREE.WebGLRenderer();
             //NOTE: Eric Seems like we could get the size of embedElement instead of window here?
-            this.renderer.setSize(window.innerWidth ,  window.innerHeight-100);
+            this.renderer.setSize(x, y);
 
             if (embedElement != null)
                 document.querySelector(embedElement).appendChild(this.renderer.domElement);
@@ -54,7 +62,7 @@ class ThreejsApp {
         if (this.scene == null) {
             return;
         }
-        console.log(this.scene.children);
+        //console.log(this.scene.children);
         if (element instanceof Module && element.content != null) {
             element.setWorld(this);
             this.scene.add(element.content);
@@ -62,7 +70,7 @@ class ThreejsApp {
         } else {
             this.scene.add(element);
         }
-        console.log(this.scene.children);
+        //console.log(this.scene.children);
         
     }
 
@@ -107,7 +115,7 @@ class ThreejsApp {
     }
 
     onWindowResize() {
-        console.log('WindowResize');
+        //console.log('WindowResize');
         this.camera.aspect = window.innerWidth / window.innerHeight;
         this.camera.updateProjectionMatrix();
     

@@ -26,6 +26,9 @@
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
   <style>
+    html,body {
+    height:100%;
+}
     main {
       background: oldlace;
     }
@@ -62,6 +65,13 @@
 
     .mdl-layout__tab-bar-container {
       height: 30px;
+    }
+    .mdl-layout__content{
+      display:relative;
+    }
+    .mdl-layout__tab-panel{
+      height: 100%;
+
     }
 
 
@@ -124,31 +134,21 @@
       margin-bottom: 1em;
     }
 
-    #scanTitleContainer {
-      position: fixed;
-      display: flex;
-      color: white;
-      z-index: 10;
-      width: 90%;
-      padding: 0.5em;
 
-    }
-    #scanTitleContainer>button i{
+    #viewerSettings{
+      position: fixed;
       color:antiquewhite;
+      right: 1em;
+      margin-top: 1em;
     }
     #scanTitle{
+      position: fixed;
+      color: white;
       font-size: 18px;
-    }
-    #scanTitleSpacer{
-      
-    }
-
-
-    .page-content {
       margin-top: 1em;
-      margin-bottom: 20px;
+      margin-left: 1em;
     }
-
+    
     .hide {
       display: none;
     }
@@ -251,14 +251,10 @@
 
       <section class="mdl-layout__tab-panel" id="fixed-tab-3">
         <!-- Scan Viewer -->
-
-        <div id="scanTitleContainer">
-          <div id="scanTitle">Cookie!</div>
-          <div id="scanTitleSpacer"></div>
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab ">
-              <i class="material-icons">settings</i>
-          </button>
-        </div>
+        <button id="viewerSettings" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab ">
+            <i class="material-icons">settings</i>
+        </button>
+        <div id="scanTitle">Cookie!</div>
         <div id="scanLoadingBar" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
         <div id='viewCanvas'></div>
       </section>
@@ -282,7 +278,7 @@
   <script src="js/libs/OBJLoader.js"></script>
 
   <script src="js/core/ThreejsApp.js"></script>
-  <script src="js/modules/Model.js"></script>
+  <script src="js/core/Model.js"></script>
 
   <script src="js/index.js"></script>
 
