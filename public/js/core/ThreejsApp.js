@@ -20,7 +20,8 @@ class Module {
 class ThreejsApp {
     constructor(embedElement = null, renderer = null, camera = null) {
         this.scene = new THREE.Scene();
-        let relavantDiv = document.querySelector(embedElement).parentElement;
+        //this is a hack!  I think it best to send width and height to constructor here??
+        let relavantDiv = document.querySelector(embedElement).parentElement.parentElement;
         let x = relavantDiv.offsetWidth;
         let y = relavantDiv.offsetHeight + 70;
        
@@ -120,5 +121,18 @@ class ThreejsApp {
         this.camera.updateProjectionMatrix();
     
         this.renderer.setSize( window.innerWidth, window.innerHeight );
+    }
+    resizeToDiv(embedElement) {
+        let relavantDiv = document.querySelector(embedElement).parentElement;
+        let x = relavantDiv.offsetWidth;
+        let y = relavantDiv.offsetHeight + 70;
+        console.log(x);
+        console.log(y);
+        console.log("resize to div: " + window.innerWidth);
+        console.log("resize to div: " + window.innerHeight);
+        this.camera.aspect = x / y;
+        this.camera.updateProjectionMatrix();
+    
+        this.renderer.setSize( x, y );
     }
 }

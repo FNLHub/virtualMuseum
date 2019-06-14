@@ -26,9 +26,11 @@
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
   <style>
-    html,body {
-    height:100%;
-}
+    html,
+    body {
+      height: 100%;
+    }
+
     main {
       background: oldlace;
     }
@@ -66,10 +68,12 @@
     .mdl-layout__tab-bar-container {
       height: 30px;
     }
-    .mdl-layout__content{
-      display:relative;
+
+    .mdl-layout__content {
+      display: relative;
     }
-    .mdl-layout__tab-panel{
+
+    .mdl-layout__tab-panel {
       height: 100%;
 
     }
@@ -135,20 +139,33 @@
     }
 
 
-    #viewerSettings{
+    #viewerSettings {
       position: fixed;
-      color:antiquewhite;
       right: 1em;
       margin-top: 1em;
     }
-    #scanTitle{
+    #viewerSettings>button{
+      color: antiquewhite;
+    }
+    #settingsPanel {
+      position: fixed;
+      background-color: transparent;
+      color: white;
+      background: rgba(255, 255, 255, 0.25);
+      width: 100px;
+      right: 1em;
+      margin-top: 1em;
+      padding: 10px;
+    }
+
+    #scanTitle {
       position: fixed;
       color: white;
       font-size: 18px;
       margin-top: 1em;
       margin-left: 1em;
     }
-    
+
     .hide {
       display: none;
     }
@@ -166,7 +183,8 @@
         <span class="mdl-layout-title">Virtual Museum</span>
         <div class="mdl-layout-spacer"></div>
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <div
+          class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
           <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
             <i class="material-icons">search</i>
           </label>
@@ -250,10 +268,29 @@
       </section>
 
       <section class="mdl-layout__tab-panel" id="fixed-tab-3">
-        <!-- Scan Viewer -->
-        <button id="viewerSettings" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab ">
+        <!-- Scan Viewer ************************** -->
+
+        <div id="viewerSettings">
+
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab ">
             <i class="material-icons">settings</i>
-        </button>
+          </button>
+
+          <div id="settingsPanel" class="hide">
+            Hide Texture:
+            <label id="hideTexture" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+                <input type="checkbox" id="switch-1" class="mdl-switch__input">
+                <span class="mdl-switch__label"></span>
+            </label>
+            Wireframe:
+            <label id="wireframe" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+                <input type="checkbox" id="switch-2" class="mdl-switch__input">
+                <span class="mdl-switch__label"></span>
+            </label>
+          </div>
+        </div>
+
+
         <div id="scanTitle">Cookie!</div>
         <div id="scanLoadingBar" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
         <div id='viewCanvas'></div>
