@@ -46,14 +46,20 @@ $(document).ready(function () {
   });
 
   $("#viewerSettings>button").click(function () {
-    $("#settingsPanel").slideToggle("slow");
+    $("#settingsPanel").slideToggle("fast");
   });
   $("#hideTexture").on('input', function () {
     model.toggleMaterial();
+    $("#brightSlider").get(0).MaterialSlider.change(0);
+    light.intensity = 1;
   });
-
   $("#wireframe").on('input', function () {
     model.toggleWireframe();
+    $("#brightSlider").get(0).MaterialSlider.change(0);
+    light.intensity = 1;
+  });
+  $("#brightSlider").on('input', function () {
+    light.intensity = 1+this.value/25;
   });
 
 });
@@ -178,7 +184,7 @@ function displayScans(argCategory) {
 //Viewer Stuff here ******************
 window.addEventListener('resize', onWindowResize, false);
 
-
+var light;
 function initViewerCanvas() {
   app = new ThreejsApp('#viewCanvas');
 
@@ -198,7 +204,7 @@ function initViewerCanvas() {
   var backLight = new THREE.DirectionalLight(0xffffff, 0.5);
   backLight.position.set(100, 0, -100).normalize();
 
-  var light = new THREE.AmbientLight(0xffffff, 1.5);
+  light = new THREE.AmbientLight(0xffffff, 1.5);
   light.position.set(30, 30, 30);
 
   app.add(keyLight);
@@ -215,6 +221,10 @@ function initViewerCanvas() {
 
   animate();
 
+}
+function changeAmbientLightIntensity(value){
+  console.log(value);
+  light.intensity = value;
 }
 
 // Loads a new model to the viewer, keeping it's previous lighing settings

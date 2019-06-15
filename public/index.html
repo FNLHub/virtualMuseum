@@ -30,7 +30,6 @@
     body {
       height: 100%;
     }
-
     main {
       background: oldlace;
     }
@@ -123,15 +122,13 @@
       justify-content: center;
       flex-wrap: wrap;
     }
-
-
     .detail-card {
       display: flex;
       flex-direction: column;
     }
-
     .detail-card .mdl-card__supporting-text {
       flex: 1;
+      width: 100%;
     }
 
     #cardDescription {
@@ -146,16 +143,25 @@
     }
     #viewerSettings>button{
       color: antiquewhite;
+      z-index:1;
     }
     #settingsPanel {
       position: fixed;
-      background-color: transparent;
-      color: white;
+      z-index:0;
+      color: antiquewhite;
       background: rgba(255, 255, 255, 0.25);
-      width: 100px;
+      width: 200px;
       right: 1em;
-      margin-top: 1em;
+      margin-top: -40px;
       padding: 10px;
+    }
+    #settingsPanel>label{
+      margin-bottom: 10px;
+    }
+    #brightSliderContainer{
+      display: flex;
+      margin-top: 5px;
+      margin-bottom: 5px;
     }
 
     #scanTitle {
@@ -271,22 +277,27 @@
         <!-- Scan Viewer ************************** -->
 
         <div id="viewerSettings">
-
+          
           <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab ">
             <i class="material-icons">settings</i>
           </button>
 
           <div id="settingsPanel" class="hide">
-            Hide Texture:
+
             <label id="hideTexture" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+                <span class="mdl-switch__label">Texture</span>               
                 <input type="checkbox" id="switch-1" class="mdl-switch__input">
-                <span class="mdl-switch__label"></span>
             </label>
-            Wireframe:
+            
             <label id="wireframe" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+                <span class="mdl-switch__label">Wireframe</span>                
                 <input type="checkbox" id="switch-2" class="mdl-switch__input">
-                <span class="mdl-switch__label"></span>
             </label>
+            <div id="brightSliderContainer">
+                <i class="material-icons">wb_sunny</i>
+                <input id="brightSlider" class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="50"
+                      tabindex="0">
+            </div>
           </div>
         </div>
 
