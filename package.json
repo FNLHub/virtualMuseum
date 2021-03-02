@@ -11,7 +11,7 @@
   "dependencies": {
     "dialog-polyfill": "^0.5.0",
     "express": "^4.16.4",
-    "three": "^0.103.0",
+    "three": "^0.126.0",
     "wavefront-obj-parser": "^2.0.1",
     "webpack": "^4.29.6",
     "whs": "^2.1.9"
