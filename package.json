@@ -13,10 +13,10 @@
     "express": "^4.16.4",
     "three": "^0.137.0",
     "wavefront-obj-parser": "^2.0.1",
-    "webpack": "^4.29.6",
+    "webpack": "^5.75.0",
     "whs": "^2.1.9"
   },
   "devDependencies": {
-    "webpack-cli": "^3.3.0"
+    "webpack-cli": "^5.0.1"
   }
 }
